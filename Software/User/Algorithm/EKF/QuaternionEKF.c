@@ -9,7 +9,7 @@
  * @attention
  * 1st order LPF transfer function:
  *     1
- *  ———————
+ *  鈥斺€斺€斺€斺€斺€斺€�
  *  as + 1
  ******************************************************************************
  */
@@ -63,23 +63,23 @@ void IMU_QuaternionEKF_Init(float process_noise1, float process_noise2, float me
     QEKF_INS.lambda = lambda;
     QEKF_INS.accLPFcoef = lpf;
 
-    // 初始化矩阵维度信息
+    // 鍒濆鍖栫煩闃电淮搴︿俊鎭�
     Kalman_Filter_Init(&QEKF_INS.IMU_QuaternionEKF, 6, 0, 3);
     Matrix_Init(&QEKF_INS.ChiSquare, 1, 1, (float *)QEKF_INS.ChiSquare_Data);
 
-    // 姿态初始化
+    // 濮挎€佸垵濮嬪寲
     QEKF_INS.IMU_QuaternionEKF.xhat_data[0] = 1;
     QEKF_INS.IMU_QuaternionEKF.xhat_data[1] = 0;
     QEKF_INS.IMU_QuaternionEKF.xhat_data[2] = 0;
     QEKF_INS.IMU_QuaternionEKF.xhat_data[3] = 0;
 
-    // 自定义函数初始化,用于扩展或增加kf的基础功能
+    // 鑷畾涔夊嚱鏁板垵濮嬪寲,鐢ㄤ簬鎵╁睍鎴栧鍔爇f鐨勫熀纭€鍔熻兘
     QEKF_INS.IMU_QuaternionEKF.User_Func0_f = IMU_QuaternionEKF_Observe;
     QEKF_INS.IMU_QuaternionEKF.User_Func1_f = IMU_QuaternionEKF_F_Linearization_P_Fading;
     QEKF_INS.IMU_QuaternionEKF.User_Func2_f = IMU_QuaternionEKF_SetH;
     QEKF_INS.IMU_QuaternionEKF.User_Func3_f = IMU_QuaternionEKF_xhatUpdate;
 
-    // 设定标志位,用自定函数替换kf标准步骤中的SetK(计算增益)以及xhatupdate(后验估计/融合)
+    // 璁惧畾鏍囧織浣�,鐢ㄨ嚜瀹氬嚱鏁版浛鎹f鏍囧噯姝ラ涓殑SetK(璁＄畻澧炵泭)浠ュ強xhatupdate(鍚庨獙浼拌/铻嶅悎)
     QEKF_INS.IMU_QuaternionEKF.SkipEq3 = TRUE;
     QEKF_INS.IMU_QuaternionEKF.SkipEq4 = TRUE;
 
@@ -90,12 +90,12 @@ void IMU_QuaternionEKF_Init(float process_noise1, float process_noise2, float me
 /**
  * @brief Quaternion EKF update
  * @param[in]       gyro x y z in rad/s
- * @param[in]       accel x y z in m/s²
+ * @param[in]       accel x y z in m/s虏
  * @param[in]       update period in s
  */
 void IMU_QuaternionEKF_Update(float gx, float gy, float gz, float ax, float ay, float az, float dt)
 {
-    // 0.5(Ohm-Ohm^bias)*deltaT,用于更新工作点处的状态转移F矩阵
+    // 0.5(Ohm-Ohm^bias)*deltaT,鐢ㄤ簬鏇存柊宸ヤ綔鐐瑰鐨勭姸鎬佽浆绉籉鐭╅樀
     static float halfgxdt, halfgydt, halfgzdt;
     static float accelInvNorm;
     if (!QEKF_INS.Initialized)
@@ -122,8 +122,8 @@ void IMU_QuaternionEKF_Update(float gx, float gy, float gz, float ax, float ay, 
     halfgydt = 0.5f * QEKF_INS.Gyro[1] * dt;
     halfgzdt = 0.5f * QEKF_INS.Gyro[2] * dt;
 
-    // 此部分设定状态转移矩阵F的左上角部分 4x4子矩阵,即0.5(Ohm-Ohm^bias)*deltaT,右下角有一个2x2单位阵已经初始化好了
-    // 注意在predict步F的右上角是4x2的零矩阵,因此每次predict的时候都会调用memcpy用单位阵覆盖前一轮线性化后的矩阵
+    // 姝ら儴鍒嗚瀹氱姸鎬佽浆绉荤煩闃礔鐨勫乏涓婅閮ㄥ垎 4x4瀛愮煩闃�,鍗�0.5(Ohm-Ohm^bias)*deltaT,鍙充笅瑙掓湁涓€涓�2x2鍗曚綅闃靛凡缁忓垵濮嬪寲濂戒簡
+    // 娉ㄦ剰鍦╬redict姝鐨勫彸涓婅鏄�4x2鐨勯浂鐭╅樀,鍥犳姣忔predict鐨勬椂鍊欓兘浼氳皟鐢╩emcpy鐢ㄥ崟浣嶉樀瑕嗙洊鍓嶄竴杞嚎鎬у寲鍚庣殑鐭╅樀
     memcpy(QEKF_INS.IMU_QuaternionEKF.F_data, IMU_QuaternionEKF_F, sizeof(IMU_QuaternionEKF_F));
 
     QEKF_INS.IMU_QuaternionEKF.F_data[1] = -halfgxdt;
@@ -142,8 +142,8 @@ void IMU_QuaternionEKF_Update(float gx, float gy, float gz, float ax, float ay, 
     QEKF_INS.IMU_QuaternionEKF.F_data[19] = halfgydt;
     QEKF_INS.IMU_QuaternionEKF.F_data[20] = -halfgxdt;
 
-    // accel low pass filter,加速度过一下低通滤波平滑数据,降低撞击和异常的影响
-    if (QEKF_INS.UpdateCount == 0) // 如果是第一次进入,需要初始化低通滤波
+    // accel low pass filter,鍔犻€熷害杩囦竴涓嬩綆閫氭护娉㈠钩婊戞暟鎹�,闄嶄綆鎾炲嚮鍜屽紓甯哥殑褰卞搷
+    if (QEKF_INS.UpdateCount == 0) // 濡傛灉鏄涓€娆¤繘鍏�,闇€瑕佸垵濮嬪寲浣庨€氭护娉�
     {
         QEKF_INS.Accel[0] = ax;
         QEKF_INS.Accel[1] = ay;
@@ -153,11 +153,11 @@ void IMU_QuaternionEKF_Update(float gx, float gy, float gz, float ax, float ay, 
     QEKF_INS.Accel[1] = QEKF_INS.Accel[1] * QEKF_INS.accLPFcoef / (QEKF_INS.dt + QEKF_INS.accLPFcoef) + ay * QEKF_INS.dt / (QEKF_INS.dt + QEKF_INS.accLPFcoef);
     QEKF_INS.Accel[2] = QEKF_INS.Accel[2] * QEKF_INS.accLPFcoef / (QEKF_INS.dt + QEKF_INS.accLPFcoef) + az * QEKF_INS.dt / (QEKF_INS.dt + QEKF_INS.accLPFcoef);
 
-    // set z,单位化重力加速度向量
+    // set z,鍗曚綅鍖栭噸鍔涘姞閫熷害鍚戦噺
     accelInvNorm = invSqrt(QEKF_INS.Accel[0] * QEKF_INS.Accel[0] + QEKF_INS.Accel[1] * QEKF_INS.Accel[1] + QEKF_INS.Accel[2] * QEKF_INS.Accel[2]);
     for (uint8_t i = 0; i < 3; i++)
     {
-        QEKF_INS.IMU_QuaternionEKF.MeasuredVector[i] = QEKF_INS.Accel[i] * accelInvNorm; // 用加速度向量更新量测值
+        QEKF_INS.IMU_QuaternionEKF.MeasuredVector[i] = QEKF_INS.Accel[i] * accelInvNorm; // 鐢ㄥ姞閫熷害鍚戦噺鏇存柊閲忔祴鍊�
     }
 
     // get body state
@@ -166,8 +166,8 @@ void IMU_QuaternionEKF_Update(float gx, float gy, float gz, float ax, float ay, 
                                         QEKF_INS.Gyro[2] * QEKF_INS.Gyro[2]);
     QEKF_INS.accl_norm = 1.0f / accelInvNorm;
 
-    // 如果角速度小于阈值且加速度处于设定范围内,认为运动稳定,加速度可以用于修正角速度
-    // 稍后在最后的姿态更新部分会利用StableFlag来确定
+    // 濡傛灉瑙掗€熷害灏忎簬闃堝€间笖鍔犻€熷害澶勪簬璁惧畾鑼冨洿鍐�,璁や负杩愬姩绋冲畾,鍔犻€熷害鍙互鐢ㄤ簬淇瑙掗€熷害
+    // 绋嶅悗鍦ㄦ渶鍚庣殑濮挎€佹洿鏂伴儴鍒嗕細鍒╃敤StableFlag鏉ョ‘瀹�
     if (QEKF_INS.gyro_norm < 0.3f && QEKF_INS.accl_norm > 9.8f - 0.5f && QEKF_INS.accl_norm < 9.8f + 0.5f)
     {
         QEKF_INS.StableFlag = 1;
@@ -177,7 +177,7 @@ void IMU_QuaternionEKF_Update(float gx, float gy, float gz, float ax, float ay, 
         QEKF_INS.StableFlag = 0;
     }
 
-    // set Q R,过程噪声和观测噪声矩阵
+    // set Q R,杩囩▼鍣０鍜岃娴嬪櫔澹扮煩闃�
     QEKF_INS.IMU_QuaternionEKF.Q_data[0] = QEKF_INS.Q1 * QEKF_INS.dt;
     QEKF_INS.IMU_QuaternionEKF.Q_data[7] = QEKF_INS.Q1 * QEKF_INS.dt;
     QEKF_INS.IMU_QuaternionEKF.Q_data[14] = QEKF_INS.Q1 * QEKF_INS.dt;
@@ -188,24 +188,24 @@ void IMU_QuaternionEKF_Update(float gx, float gy, float gz, float ax, float ay, 
     QEKF_INS.IMU_QuaternionEKF.R_data[4] = QEKF_INS.R;
     QEKF_INS.IMU_QuaternionEKF.R_data[8] = QEKF_INS.R;
 
-    // 调用kalman_filter.c封装好的函数,注意几个User_Funcx_f的调用
+    // 璋冪敤kalman_filter.c灏佽濂界殑鍑芥暟,娉ㄦ剰鍑犱釜User_Funcx_f鐨勮皟鐢�
     Kalman_Filter_Update(&QEKF_INS.IMU_QuaternionEKF);
 
-    // 获取融合后的数据,包括四元数和xy零飘值
+    // 鑾峰彇铻嶅悎鍚庣殑鏁版嵁,鍖呮嫭鍥涘厓鏁板拰xy闆堕鍊�
     QEKF_INS.q[0] = QEKF_INS.IMU_QuaternionEKF.FilteredValue[0];
     QEKF_INS.q[1] = QEKF_INS.IMU_QuaternionEKF.FilteredValue[1];
     QEKF_INS.q[2] = QEKF_INS.IMU_QuaternionEKF.FilteredValue[2];
     QEKF_INS.q[3] = QEKF_INS.IMU_QuaternionEKF.FilteredValue[3];
     QEKF_INS.GyroBias[0] = QEKF_INS.IMU_QuaternionEKF.FilteredValue[4];
     QEKF_INS.GyroBias[1] = QEKF_INS.IMU_QuaternionEKF.FilteredValue[5];
-    QEKF_INS.GyroBias[2] = 0; // 大部分时候z轴通天,无法观测yaw的漂移
+    QEKF_INS.GyroBias[2] = 0; // 澶ч儴鍒嗘椂鍊檢杞撮€氬ぉ,鏃犳硶瑙傛祴yaw鐨勬紓绉�
 
-    // 利用四元数反解欧拉角
+    // 鍒╃敤鍥涘厓鏁板弽瑙ｆ鎷夎
     QEKF_INS.Yaw = atan2f(2.0f * (QEKF_INS.q[0] * QEKF_INS.q[3] + QEKF_INS.q[1] * QEKF_INS.q[2]), 2.0f * (QEKF_INS.q[0] * QEKF_INS.q[0] + QEKF_INS.q[1] * QEKF_INS.q[1]) - 1.0f) * 57.295779513f;
     QEKF_INS.Pitch = atan2f(2.0f * (QEKF_INS.q[0] * QEKF_INS.q[1] + QEKF_INS.q[2] * QEKF_INS.q[3]), 2.0f * (QEKF_INS.q[0] * QEKF_INS.q[0] + QEKF_INS.q[3] * QEKF_INS.q[3]) - 1.0f) * 57.295779513f;
     QEKF_INS.Roll = asinf(-2.0f * (QEKF_INS.q[1] * QEKF_INS.q[3] - QEKF_INS.q[0] * QEKF_INS.q[2])) * 57.295779513f;
 
-    // get Yaw total, yaw数据可能会超过360,处理一下方便其他功能使用(如小陀螺)
+    // get Yaw total, yaw鏁版嵁鍙兘浼氳秴杩�360,澶勭悊涓€涓嬫柟渚垮叾浠栧姛鑳戒娇鐢�(濡傚皬闄€铻�)
     if (QEKF_INS.Yaw - QEKF_INS.YawAngleLast > 180.0f)
     {
         QEKF_INS.YawRoundCount--;
@@ -216,12 +216,12 @@ void IMU_QuaternionEKF_Update(float gx, float gy, float gz, float ax, float ay, 
     }
     QEKF_INS.YawTotalAngle = 360.0f * QEKF_INS.YawRoundCount + QEKF_INS.Yaw;
     QEKF_INS.YawAngleLast = QEKF_INS.Yaw;
-    QEKF_INS.UpdateCount++; // 初始化低通滤波用,计数测试用
+    QEKF_INS.UpdateCount++; // 鍒濆鍖栦綆閫氭护娉㈢敤,璁℃暟娴嬭瘯鐢�
 }
 
 /**
- * @brief 用于更新线性化后的状态转移矩阵F右上角的一个4x2分块矩阵,稍后用于协方差矩阵P的更新;
- *        并对零漂的方差进行限制,防止过度收敛并限幅防止发散
+ * @brief 鐢ㄤ簬鏇存柊绾挎€у寲鍚庣殑鐘舵€佽浆绉荤煩闃礔鍙充笂瑙掔殑涓€涓�4x2鍒嗗潡鐭╅樀,绋嶅悗鐢ㄤ簬鍗忔柟宸煩闃礟鐨勬洿鏂�;
+ *        骞跺闆舵紓鐨勬柟宸繘琛岄檺鍒�,闃叉杩囧害鏀舵暃骞堕檺骞呴槻姝㈠彂鏁�
  *
  * @param kf
  */
@@ -262,11 +262,11 @@ static void IMU_QuaternionEKF_F_Linearization_P_Fading(KalmanFilter_t *kf)
     kf->F_data[22] = q2 * QEKF_INS.dt / 2;
     kf->F_data[23] = -q1 * QEKF_INS.dt / 2;
 
-    // fading filter,防止零飘参数过度收敛
+    // fading filter,闃叉闆堕鍙傛暟杩囧害鏀舵暃
     kf->P_data[28] /= QEKF_INS.lambda;
     kf->P_data[35] /= QEKF_INS.lambda;
 
-    // 限幅,防止发散
+    // 闄愬箙,闃叉鍙戞暎
     if (kf->P_data[28] > 10000)
     {
         kf->P_data[28] = 10000;
@@ -278,7 +278,7 @@ static void IMU_QuaternionEKF_F_Linearization_P_Fading(KalmanFilter_t *kf)
 }
 
 /**
- * @brief 在工作点处计算观测函数h(x)的Jacobi矩阵H
+ * @brief 鍦ㄥ伐浣滅偣澶勮绠楄娴嬪嚱鏁癶(x)鐨凧acobi鐭╅樀H
  *
  * @param kf
  */
@@ -316,9 +316,9 @@ static void IMU_QuaternionEKF_SetH(KalmanFilter_t *kf)
 }
 
 /**
- * @brief 利用观测值和先验估计得到最优的后验估计
- *        加入了卡方检验以判断融合加速度的条件是否满足
- *        同时引入发散保护保证恶劣工况下的必要量测更新
+ * @brief 鍒╃敤瑙傛祴鍊煎拰鍏堥獙浼拌寰楀埌鏈€浼樼殑鍚庨獙浼拌
+ *        鍔犲叆浜嗗崱鏂规楠屼互鍒ゆ柇铻嶅悎鍔犻€熷害鐨勬潯浠舵槸鍚︽弧瓒�
+ *        鍚屾椂寮曞叆鍙戞暎淇濇姢淇濊瘉鎭跺姡宸ュ喌涓嬬殑蹇呰閲忔祴鏇存柊
  *
  * @param kf
  */
@@ -329,14 +329,14 @@ static void IMU_QuaternionEKF_xhatUpdate(KalmanFilter_t *kf)
     kf->MatStatus = Matrix_Transpose(&kf->H, &kf->HT); // z|x => x|z
     kf->temp_matrix.numRows = kf->H.numRows;
     kf->temp_matrix.numCols = kf->Pminus.numCols;
-    kf->MatStatus = Matrix_Multiply(&kf->H, &kf->Pminus, &kf->temp_matrix); // temp_matrix = H·P'(k)
+    kf->MatStatus = Matrix_Multiply(&kf->H, &kf->Pminus, &kf->temp_matrix); // temp_matrix = H路P'(k)
     kf->temp_matrix1.numRows = kf->temp_matrix.numRows;
     kf->temp_matrix1.numCols = kf->HT.numCols;
-    kf->MatStatus = Matrix_Multiply(&kf->temp_matrix, &kf->HT, &kf->temp_matrix1); // temp_matrix1 = H·P'(k)·HT
+    kf->MatStatus = Matrix_Multiply(&kf->temp_matrix, &kf->HT, &kf->temp_matrix1); // temp_matrix1 = H路P'(k)路HT
     kf->S.numRows = kf->R.numRows;
     kf->S.numCols = kf->R.numCols;
     kf->MatStatus = Matrix_Add(&kf->temp_matrix1, &kf->R, &kf->S); // S = H P'(k) HT + R
-    kf->MatStatus = Matrix_Inverse(&kf->S, &kf->temp_matrix1);     // temp_matrix1 = inv(H·P'(k)·HT + R)
+    kf->MatStatus = Matrix_Inverse(&kf->S, &kf->temp_matrix1);     // temp_matrix1 = inv(H路P'(k)路HT + R)
 
     q0 = kf->xhatminus_data[0];
     q1 = kf->xhatminus_data[1];
@@ -345,26 +345,26 @@ static void IMU_QuaternionEKF_xhatUpdate(KalmanFilter_t *kf)
 
     kf->temp_vector.numRows = kf->H.numRows;
     kf->temp_vector.numCols = 1;
-    // 计算预测得到的重力加速度方向(通过姿态获取的)
+    // 璁＄畻棰勬祴寰楀埌鐨勯噸鍔涘姞閫熷害鏂瑰悜(閫氳繃濮挎€佽幏鍙栫殑)
     kf->temp_vector_data[0] = 2 * (q1 * q3 - q0 * q2);
     kf->temp_vector_data[1] = 2 * (q0 * q1 + q2 * q3);
     kf->temp_vector_data[2] = q0 * q0 - q1 * q1 - q2 * q2 + q3 * q3; // temp_vector = h(xhat'(k))
 
-    // 计算预测值和各个轴的方向余弦
+    // 璁＄畻棰勬祴鍊煎拰鍚勪釜杞寸殑鏂瑰悜浣欏鸡
     for (uint8_t i = 0; i < 3; i++)
     {
         QEKF_INS.OrientationCosine[i] = acosf(fabsf(kf->temp_vector_data[i]));
     }
 
-    // 利用加速度计数据修正
+    // 鍒╃敤鍔犻€熷害璁℃暟鎹慨姝�
     kf->temp_vector1.numRows = kf->z.numRows;
     kf->temp_vector1.numCols = 1;
     kf->MatStatus = Matrix_Subtract(&kf->z, &kf->temp_vector, &kf->temp_vector1); // temp_vector1 = z(k) - h(xhat'(k))
 
-    // chi-square test,卡方检验
+    // chi-square test,鍗℃柟妫€楠�
     kf->temp_matrix.numRows = kf->temp_vector1.numRows;
     kf->temp_matrix.numCols = 1;
-    kf->MatStatus = Matrix_Multiply(&kf->temp_matrix1, &kf->temp_vector1, &kf->temp_matrix); // temp_matrix = inv(H·P'(k)·HT + R)·(z(k) - h(xhat'(k)))
+    kf->MatStatus = Matrix_Multiply(&kf->temp_matrix1, &kf->temp_vector1, &kf->temp_matrix); // temp_matrix = inv(H路P'(k)路HT + R)路(z(k) - h(xhat'(k)))
     kf->temp_vector.numRows = 1;
     kf->temp_vector.numCols = kf->temp_vector1.numRows;
     kf->MatStatus = Matrix_Transpose(&kf->temp_vector1, &kf->temp_vector); // temp_vector = z(k) - h(xhat'(k))'
@@ -379,7 +379,7 @@ static void IMU_QuaternionEKF_xhatUpdate(KalmanFilter_t *kf)
     {
         if (QEKF_INS.StableFlag)
         {
-            QEKF_INS.ErrorCount++; // 载体静止时仍无法通过卡方检验
+            QEKF_INS.ErrorCount++; // 杞戒綋闈欐鏃朵粛鏃犳硶閫氳繃鍗℃柟妫€楠�
         }
         else
         {
@@ -388,13 +388,13 @@ static void IMU_QuaternionEKF_xhatUpdate(KalmanFilter_t *kf)
 
         if (QEKF_INS.ErrorCount > 50)
         {
-            // 滤波器发散
+            // 婊ゆ尝鍣ㄥ彂鏁�
             QEKF_INS.ConvergeFlag = 0;
             kf->SkipEq5 = FALSE; // step-5 is cov mat P updating
         }
         else
         {
-            //  残差未通过卡方检验 仅预测
+            //  娈嬪樊鏈€氳繃鍗℃柟妫€楠� 浠呴娴�
             //  xhat(k) = xhat'(k)
             //  P(k) = P'(k)
             memcpy(kf->xhat_data, kf->xhatminus_data, sizeof_float * kf->xhatSize);
@@ -405,7 +405,7 @@ static void IMU_QuaternionEKF_xhatUpdate(KalmanFilter_t *kf)
     }
     else // if divergent or rk is not that big/acceptable,use adaptive gain
     {
-        // scale adaptive,rk越小则增益越大,否则更相信预测值
+        // scale adaptive,rk瓒婂皬鍒欏鐩婅秺澶�,鍚﹀垯鏇寸浉淇￠娴嬪€�
         if (QEKF_INS.ChiSquare_Data[0] > 0.1f * QEKF_INS.ChiSquareTestThreshold && QEKF_INS.ConvergeFlag)
         {
             QEKF_INS.AdaptiveGainScale = (QEKF_INS.ChiSquareTestThreshold - QEKF_INS.ChiSquare_Data[0]) / (0.9f * QEKF_INS.ChiSquareTestThreshold);
@@ -421,7 +421,7 @@ static void IMU_QuaternionEKF_xhatUpdate(KalmanFilter_t *kf)
     // cal kf-gain K
     kf->temp_matrix.numRows = kf->Pminus.numRows;
     kf->temp_matrix.numCols = kf->HT.numCols;
-    kf->MatStatus = Matrix_Multiply(&kf->Pminus, &kf->HT, &kf->temp_matrix); // temp_matrix = P'(k)·HT
+    kf->MatStatus = Matrix_Multiply(&kf->Pminus, &kf->HT, &kf->temp_matrix); // temp_matrix = P'(k)路HT
     kf->MatStatus = Matrix_Multiply(&kf->temp_matrix, &kf->temp_matrix1, &kf->K);
 
     // implement adaptive
@@ -439,9 +439,9 @@ static void IMU_QuaternionEKF_xhatUpdate(KalmanFilter_t *kf)
 
     kf->temp_vector.numRows = kf->K.numRows;
     kf->temp_vector.numCols = 1;
-    kf->MatStatus = Matrix_Multiply(&kf->K, &kf->temp_vector1, &kf->temp_vector); // temp_vector = K(k)·(z(k) - H·xhat'(k))
+    kf->MatStatus = Matrix_Multiply(&kf->K, &kf->temp_vector1, &kf->temp_vector); // temp_vector = K(k)路(z(k) - H路xhat'(k))
 
-    // 零漂修正限幅,一般不会有过大的漂移
+    // 闆舵紓淇闄愬箙,涓€鑸笉浼氭湁杩囧ぇ鐨勬紓绉�
     if (QEKF_INS.ConvergeFlag)
     {
         for (uint8_t i = 4; i < 6; i++)
@@ -457,15 +457,15 @@ static void IMU_QuaternionEKF_xhatUpdate(KalmanFilter_t *kf)
         }
     }
 
-    // 不修正yaw轴数据
+    // 涓嶄慨姝aw杞存暟鎹�
     kf->temp_vector.pData[3] = 0;
     kf->MatStatus = Matrix_Add(&kf->xhatminus, &kf->temp_vector, &kf->xhat);
 }
 
 /**
- * @brief EKF观测环节,其实就是把数据复制一下
+ * @brief EKF瑙傛祴鐜妭,鍏跺疄灏辨槸鎶婃暟鎹鍒朵竴涓�
  *
- * @param kf kf类型定义
+ * @param kf kf绫诲瀷瀹氫箟
  */
 static void IMU_QuaternionEKF_Observe(KalmanFilter_t *kf)
 {
@@ -475,7 +475,7 @@ static void IMU_QuaternionEKF_Observe(KalmanFilter_t *kf)
 }
 
 /**
- * @brief 自定义1/sqrt(x),速度更快
+ * @brief 鑷畾涔�1/sqrt(x),閫熷害鏇村揩
  *
  * @param x x
  * @return float

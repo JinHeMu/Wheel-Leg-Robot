@@ -1,9 +1,9 @@
 ctrlboard-h7_imu\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/tasks.c
-ctrlboard-h7_imu\tasks.o: D:\Install\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
-ctrlboard-h7_imu\tasks.o: D:\Install\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+ctrlboard-h7_imu\tasks.o: D:\keil_5.33\ARM\ARMCC\Bin\..\include\stdlib.h
+ctrlboard-h7_imu\tasks.o: D:\keil_5.33\ARM\ARMCC\Bin\..\include\string.h
 ctrlboard-h7_imu\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
-ctrlboard-h7_imu\tasks.o: D:\Install\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
-ctrlboard-h7_imu\tasks.o: D:\Install\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+ctrlboard-h7_imu\tasks.o: D:\keil_5.33\ARM\ARMCC\Bin\..\include\stddef.h
+ctrlboard-h7_imu\tasks.o: D:\keil_5.33\ARM\ARMCC\Bin\..\include\stdint.h
 ctrlboard-h7_imu\tasks.o: ../Core/Inc/FreeRTOSConfig.h
 ctrlboard-h7_imu\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
 ctrlboard-h7_imu\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h

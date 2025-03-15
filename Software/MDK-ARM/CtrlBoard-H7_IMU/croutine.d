@@ -1,7 +1,7 @@
 ctrlboard-h7_imu\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/croutine.c
 ctrlboard-h7_imu\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
-ctrlboard-h7_imu\croutine.o: D:\Install\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
-ctrlboard-h7_imu\croutine.o: D:\Install\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+ctrlboard-h7_imu\croutine.o: D:\keil_5.33\ARM\ARMCC\Bin\..\include\stddef.h
+ctrlboard-h7_imu\croutine.o: D:\keil_5.33\ARM\ARMCC\Bin\..\include\stdint.h
 ctrlboard-h7_imu\croutine.o: ../Core/Inc/FreeRTOSConfig.h
 ctrlboard-h7_imu\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
 ctrlboard-h7_imu\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h

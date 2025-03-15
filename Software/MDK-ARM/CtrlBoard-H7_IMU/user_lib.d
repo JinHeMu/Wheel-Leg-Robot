@@ -1,8 +1,8 @@
 ctrlboard-h7_imu\user_lib.o: ..\User\Lib\user_lib.c
-ctrlboard-h7_imu\user_lib.o: D:\Install\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
-ctrlboard-h7_imu\user_lib.o: D:\Install\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+ctrlboard-h7_imu\user_lib.o: D:\keil_5.33\ARM\ARMCC\Bin\..\include\stdlib.h
+ctrlboard-h7_imu\user_lib.o: D:\keil_5.33\ARM\ARMCC\Bin\..\include\string.h
 ctrlboard-h7_imu\user_lib.o: ..\User\Lib\user_lib.h
-ctrlboard-h7_imu\user_lib.o: D:\Install\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+ctrlboard-h7_imu\user_lib.o: D:\keil_5.33\ARM\ARMCC\Bin\..\include\stdint.h
 ctrlboard-h7_imu\user_lib.o: ../Core/Inc/main.h
 ctrlboard-h7_imu\user_lib.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h
 ctrlboard-h7_imu\user_lib.o: ../Core/Inc/stm32h7xx_hal_conf.h
@@ -18,8 +18,8 @@ ctrlboard-h7_imu\user_lib.o: ../Drivers/CMSIS/Include/mpu_armv7.h
 ctrlboard-h7_imu\user_lib.o: ../Drivers/CMSIS/Device/ST/STM32H7xx/Include/system_stm32h7xx.h
 ctrlboard-h7_imu\user_lib.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h
 ctrlboard-h7_imu\user_lib.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-ctrlboard-h7_imu\user_lib.o: D:\Install\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
-ctrlboard-h7_imu\user_lib.o: D:\Install\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+ctrlboard-h7_imu\user_lib.o: D:\keil_5.33\ARM\ARMCC\Bin\..\include\stddef.h
+ctrlboard-h7_imu\user_lib.o: D:\keil_5.33\ARM\ARMCC\Bin\..\include\math.h
 ctrlboard-h7_imu\user_lib.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc_ex.h
 ctrlboard-h7_imu\user_lib.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_gpio.h
 ctrlboard-h7_imu\user_lib.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_gpio_ex.h

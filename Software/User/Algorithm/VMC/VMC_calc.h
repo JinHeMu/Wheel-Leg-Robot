@@ -15,7 +15,7 @@ typedef struct
 {
 	/*左右两腿的公共参数，固定不变*/
 	float l5;//AE长度 //单位为m
-	float	l1;//单位为m
+	float l1;//单位为m
 	float l2;//单位为m
 	float l3;//单位为m
 	float l4;//单位为m

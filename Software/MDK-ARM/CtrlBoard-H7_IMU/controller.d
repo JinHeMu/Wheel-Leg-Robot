@@ -8,7 +8,7 @@ ctrlboard-h7_imu\controller.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal
 ctrlboard-h7_imu\controller.o: ../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h
 ctrlboard-h7_imu\controller.o: ../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h723xx.h
 ctrlboard-h7_imu\controller.o: ../Drivers/CMSIS/Include/core_cm7.h
-ctrlboard-h7_imu\controller.o: D:\Install\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+ctrlboard-h7_imu\controller.o: D:\keil_5.33\ARM\ARMCC\Bin\..\include\stdint.h
 ctrlboard-h7_imu\controller.o: ../Drivers/CMSIS/Include/cmsis_version.h
 ctrlboard-h7_imu\controller.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
 ctrlboard-h7_imu\controller.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
@@ -16,8 +16,8 @@ ctrlboard-h7_imu\controller.o: ../Drivers/CMSIS/Include/mpu_armv7.h
 ctrlboard-h7_imu\controller.o: ../Drivers/CMSIS/Device/ST/STM32H7xx/Include/system_stm32h7xx.h
 ctrlboard-h7_imu\controller.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h
 ctrlboard-h7_imu\controller.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-ctrlboard-h7_imu\controller.o: D:\Install\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
-ctrlboard-h7_imu\controller.o: D:\Install\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+ctrlboard-h7_imu\controller.o: D:\keil_5.33\ARM\ARMCC\Bin\..\include\stddef.h
+ctrlboard-h7_imu\controller.o: D:\keil_5.33\ARM\ARMCC\Bin\..\include\math.h
 ctrlboard-h7_imu\controller.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc_ex.h
 ctrlboard-h7_imu\controller.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_gpio.h
 ctrlboard-h7_imu\controller.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_gpio_ex.h
@@ -40,8 +40,8 @@ ctrlboard-h7_imu\controller.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal
 ctrlboard-h7_imu\controller.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h
 ctrlboard-h7_imu\controller.o: ../User/Bsp/bsp_dwt.h
 ctrlboard-h7_imu\controller.o: ../Core/Inc/main.h
-ctrlboard-h7_imu\controller.o: D:\Install\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-ctrlboard-h7_imu\controller.o: D:\Install\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+ctrlboard-h7_imu\controller.o: D:\keil_5.33\ARM\ARMCC\Bin\..\include\string.h
+ctrlboard-h7_imu\controller.o: D:\keil_5.33\ARM\ARMCC\Bin\..\include\stdlib.h
 ctrlboard-h7_imu\controller.o: ../User/Lib/user_lib.h
 ctrlboard-h7_imu\controller.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h
 ctrlboard-h7_imu\controller.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
@@ -58,4 +58,4 @@ ctrlboard-h7_imu\controller.o: ../Middlewares/Third_Party/FreeRTOS/Source/includ
 ctrlboard-h7_imu\controller.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
 ctrlboard-h7_imu\controller.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
 ctrlboard-h7_imu\controller.o: ../Drivers/CMSIS/DSP/Include/arm_math.h
-ctrlboard-h7_imu\controller.o: D:\Install\Keil_v5\ARM\ARMCC\Bin\..\include\float.h
+ctrlboard-h7_imu\controller.o: D:\keil_5.33\ARM\ARMCC\Bin\..\include\float.h

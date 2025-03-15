@@ -1,8 +1,8 @@
 ctrlboard-h7_imu\heap_4.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c
-ctrlboard-h7_imu\heap_4.o: D:\Install\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+ctrlboard-h7_imu\heap_4.o: D:\keil_5.33\ARM\ARMCC\Bin\..\include\stdlib.h
 ctrlboard-h7_imu\heap_4.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
-ctrlboard-h7_imu\heap_4.o: D:\Install\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
-ctrlboard-h7_imu\heap_4.o: D:\Install\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+ctrlboard-h7_imu\heap_4.o: D:\keil_5.33\ARM\ARMCC\Bin\..\include\stddef.h
+ctrlboard-h7_imu\heap_4.o: D:\keil_5.33\ARM\ARMCC\Bin\..\include\stdint.h
 ctrlboard-h7_imu\heap_4.o: ../Core/Inc/FreeRTOSConfig.h
 ctrlboard-h7_imu\heap_4.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
 ctrlboard-h7_imu\heap_4.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h

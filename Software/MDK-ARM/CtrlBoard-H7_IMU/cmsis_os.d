@@ -1,9 +1,9 @@
 ctrlboard-h7_imu\cmsis_os.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.c
-ctrlboard-h7_imu\cmsis_os.o: D:\Install\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+ctrlboard-h7_imu\cmsis_os.o: D:\keil_5.33\ARM\ARMCC\Bin\..\include\string.h
 ctrlboard-h7_imu\cmsis_os.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h
 ctrlboard-h7_imu\cmsis_os.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
-ctrlboard-h7_imu\cmsis_os.o: D:\Install\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
-ctrlboard-h7_imu\cmsis_os.o: D:\Install\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+ctrlboard-h7_imu\cmsis_os.o: D:\keil_5.33\ARM\ARMCC\Bin\..\include\stddef.h
+ctrlboard-h7_imu\cmsis_os.o: D:\keil_5.33\ARM\ARMCC\Bin\..\include\stdint.h
 ctrlboard-h7_imu\cmsis_os.o: ../Core/Inc/FreeRTOSConfig.h
 ctrlboard-h7_imu\cmsis_os.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
 ctrlboard-h7_imu\cmsis_os.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
