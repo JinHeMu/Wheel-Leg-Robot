@@ -7,7 +7,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2024 STMicroelectronics.
+  * Copyright (c) 2025 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -31,7 +31,7 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "bsp_dwt.h"
+
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -57,26 +57,9 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define ACC_CS_Pin GPIO_PIN_0
-#define ACC_CS_GPIO_Port GPIOC
-#define GYRO_CS_Pin GPIO_PIN_3
-#define GYRO_CS_GPIO_Port GPIOC
-#define DI_Pin GPIO_PIN_0
-#define DI_GPIO_Port GPIOA
-#define DO_Pin GPIO_PIN_2
-#define DO_GPIO_Port GPIOA
-#define CS_Pin GPIO_PIN_9
-#define CS_GPIO_Port GPIOE
-#define ACC_INT_Pin GPIO_PIN_10
-#define ACC_INT_GPIO_Port GPIOE
-#define GYRO_INT_Pin GPIO_PIN_12
-#define GYRO_INT_GPIO_Port GPIOE
-#define CLK_Pin GPIO_PIN_13
-#define CLK_GPIO_Port GPIOE
 
 /* USER CODE BEGIN Private defines */
-typedef float fp32;
-typedef double fp64;
+
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

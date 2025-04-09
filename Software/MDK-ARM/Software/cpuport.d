@@ -1,0 +1,11 @@
+software\cpuport.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/libcpu/arm/cortex-m7/cpuport.c
+software\cpuport.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/rtthread.h
+software\cpuport.o: ../RT-Thread/rtconfig.h
+software\cpuport.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/components/finsh/inc/finsh_config.h
+software\cpuport.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/rtdebug.h
+software\cpuport.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/rtdef.h
+software\cpuport.o: D:\keil_5.33\ARM\ARMCC\Bin\..\include\stdarg.h
+software\cpuport.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/rtservice.h
+software\cpuport.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/rtm.h
+software\cpuport.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/rtthread.h
+software\cpuport.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/components/finsh/inc/finsh.h

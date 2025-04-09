@@ -1,7 +1,0 @@
-{
-    "files.associations": {
-        "vmc_calc.h": "c",
-        "pid.h": "c",
-        "main.h": "c"
-    }
-}

@@ -1,0 +1,13 @@
+software\cmd.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/components/finsh/src/cmd.c
+software\cmd.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/rthw.h
+software\cmd.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/rtthread.h
+software\cmd.o: ../RT-Thread/rtconfig.h
+software\cmd.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/components/finsh/inc/finsh_config.h
+software\cmd.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/rtdebug.h
+software\cmd.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/rtdef.h
+software\cmd.o: D:\keil_5.33\ARM\ARMCC\Bin\..\include\stdarg.h
+software\cmd.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/rtservice.h
+software\cmd.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/rtm.h
+software\cmd.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/rtthread.h
+software\cmd.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/components/finsh/inc/finsh.h
+software\cmd.o: D:\keil_5.33\ARM\ARMCC\Bin\..\include\string.h

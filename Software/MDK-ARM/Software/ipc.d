@@ -1,0 +1,12 @@
+software\ipc.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/src/ipc.c
+software\ipc.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/rtthread.h
+software\ipc.o: ../RT-Thread/rtconfig.h
+software\ipc.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/components/finsh/inc/finsh_config.h
+software\ipc.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/rtdebug.h
+software\ipc.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/rtdef.h
+software\ipc.o: D:\keil_5.33\ARM\ARMCC\Bin\..\include\stdarg.h
+software\ipc.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/rtservice.h
+software\ipc.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/rtm.h
+software\ipc.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/rtthread.h
+software\ipc.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/components/finsh/inc/finsh.h
+software\ipc.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/rthw.h

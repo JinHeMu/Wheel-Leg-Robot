@@ -1,0 +1,11 @@
+software\msh_file.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/components/finsh/src/msh_file.c
+software\msh_file.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/rtthread.h
+software\msh_file.o: ../RT-Thread/rtconfig.h
+software\msh_file.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/components/finsh/inc/finsh_config.h
+software\msh_file.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/rtdebug.h
+software\msh_file.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/rtdef.h
+software\msh_file.o: D:\keil_5.33\ARM\ARMCC\Bin\..\include\stdarg.h
+software\msh_file.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/rtservice.h
+software\msh_file.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/rtm.h
+software\msh_file.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/rtthread.h
+software\msh_file.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/components/finsh/inc/finsh.h
