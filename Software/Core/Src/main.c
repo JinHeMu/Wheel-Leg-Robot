@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2025 STMicroelectronics.
+  * Copyright (c) 2024 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -18,13 +18,21 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "memorymap.h"
-#include "usart.h"
+//#include "cmsis_os.h"
+//#include "dma.h"
+#include "fdcan.h"
+//#include "spi.h"
+#include "tim.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include <rtthread.h>
+//#include "BMI088driver.h"
+//#include "kalman_filter.h"
+//#include "mahony_filter.h"
+#include "bsp_dwt.h"
+//#include "BMI088Middleware.h"
+#include "can_bsp.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -45,12 +53,13 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+uint8_t send_data[8] = {0,1,2,3,4,5,6,7};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
-static void MPU_Config(void);
+void PeriphCommonClock_Config(void);
+void MX_FREERTOS_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -66,13 +75,9 @@ static void MPU_Config(void);
   */
 int main(void)
 {
-
   /* USER CODE BEGIN 1 */
 
   /* USER CODE END 1 */
-
-  /* MPU Configuration--------------------------------------------------------*/
-  MPU_Config();
 
   /* MCU Configuration--------------------------------------------------------*/
 
@@ -80,11 +85,14 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
+//06 01 00 00 00 00 00 00 00 00 00 00 00 00 80 3F
   /* USER CODE END Init */
 
   /* Configure the system clock */
   SystemClock_Config();
+
+/* Configure the peripherals common clocks */
+  PeriphCommonClock_Config();
 
   /* USER CODE BEGIN SysInit */
 
@@ -92,19 +100,43 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_USART1_UART_Init();
+//  MX_DMA_Init();
+//  MX_SPI2_Init();
+  MX_FDCAN1_Init();
+  MX_FDCAN2_Init();
+  MX_TIM3_Init();
+  MX_FDCAN3_Init();
   /* USER CODE BEGIN 2 */
-
+//	DWT_Init(480);
+//  
+//    /* BMI088初始化 *///之前已经对角速度和加速度的零飘校准过了，所以之后上电就不需要校准。如果硬件设备更换，则需要重新校准下
+//  while (BMI088_init(&hspi2, 0) != BMI088_NO_ERROR)
+//	{
+//	  ;
+//	}
+//	Power_OUT1_ON;//imu初始化完成，可控电源打开，led灯亮
+//	Power_OUT2_ON;
+	
+  FDCAN1_Config();//can过滤器初始化
+	FDCAN2_Config();
   /* USER CODE END 2 */
 
+  /* Call init function for freertos objects (in freertos.c) */
+//  MX_FREERTOS_Init();
+
+  /* Start scheduler */
+//  osKernelStart();
+
+  /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
     /* USER CODE END WHILE */
-		
+		canx_send_data(&hfdcan1, 0x520, send_data, 8);
+		HAL_Delay(1000);
     /* USER CODE BEGIN 3 */
-		rt_thread_mdelay(500);
+ 
   }
   /* USER CODE END 3 */
 }
@@ -167,38 +199,35 @@ void SystemClock_Config(void)
   }
 }
 
+/**
+  * @brief Peripherals Common Clock Configuration
+  * @retval None
+  */
+void PeriphCommonClock_Config(void)
+{
+  RCC_PeriphCLKInitTypeDef PeriphClkInitStruct = {0};
+
+  /** Initializes the peripherals clock
+  */
+  PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_FDCAN;
+  PeriphClkInitStruct.PLL2.PLL2M = 24;
+  PeriphClkInitStruct.PLL2.PLL2N = 200;
+  PeriphClkInitStruct.PLL2.PLL2P = 2;
+  PeriphClkInitStruct.PLL2.PLL2Q = 2;
+  PeriphClkInitStruct.PLL2.PLL2R = 2;
+  PeriphClkInitStruct.PLL2.PLL2RGE = RCC_PLL2VCIRANGE_0;
+  PeriphClkInitStruct.PLL2.PLL2VCOSEL = RCC_PLL2VCOMEDIUM;
+  PeriphClkInitStruct.PLL2.PLL2FRACN = 0;
+  PeriphClkInitStruct.FdcanClockSelection = RCC_FDCANCLKSOURCE_PLL2;
+  if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK)
+  {
+    Error_Handler();
+  }
+}
+
 /* USER CODE BEGIN 4 */
 
 /* USER CODE END 4 */
-
- /* MPU Configuration */
-
-void MPU_Config(void)
-{
-  MPU_Region_InitTypeDef MPU_InitStruct = {0};
-
-  /* Disables the MPU */
-  HAL_MPU_Disable();
-
-  /** Initializes and configures the Region and the memory to be protected
-  */
-  MPU_InitStruct.Enable = MPU_REGION_ENABLE;
-  MPU_InitStruct.Number = MPU_REGION_NUMBER0;
-  MPU_InitStruct.BaseAddress = 0x0;
-  MPU_InitStruct.Size = MPU_REGION_SIZE_4GB;
-  MPU_InitStruct.SubRegionDisable = 0x87;
-  MPU_InitStruct.TypeExtField = MPU_TEX_LEVEL0;
-  MPU_InitStruct.AccessPermission = MPU_REGION_NO_ACCESS;
-  MPU_InitStruct.DisableExec = MPU_INSTRUCTION_ACCESS_DISABLE;
-  MPU_InitStruct.IsShareable = MPU_ACCESS_SHAREABLE;
-  MPU_InitStruct.IsCacheable = MPU_ACCESS_NOT_CACHEABLE;
-  MPU_InitStruct.IsBufferable = MPU_ACCESS_NOT_BUFFERABLE;
-
-  HAL_MPU_ConfigRegion(&MPU_InitStruct);
-  /* Enables the MPU */
-  HAL_MPU_Enable(MPU_PRIVILEGED_DEFAULT);
-
-}
 
 /**
   * @brief  Period elapsed callback in non blocking mode
@@ -213,8 +242,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   /* USER CODE BEGIN Callback 0 */
 
   /* USER CODE END Callback 0 */
-  if (htim->Instance == TIM2)
-  {
+  if (htim->Instance == TIM2) {
     HAL_IncTick();
   }
   /* USER CODE BEGIN Callback 1 */
