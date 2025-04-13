@@ -24,6 +24,7 @@ software\stm32h7xx_hal_uart.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal
 software\stm32h7xx_hal_uart.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_mdma.h
 software\stm32h7xx_hal_uart.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_exti.h
 software\stm32h7xx_hal_uart.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_cortex.h
+software\stm32h7xx_hal_uart.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_fdcan.h
 software\stm32h7xx_hal_uart.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_flash.h
 software\stm32h7xx_hal_uart.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_flash_ex.h
 software\stm32h7xx_hal_uart.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_hsem.h
@@ -31,6 +32,8 @@ software\stm32h7xx_hal_uart.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal
 software\stm32h7xx_hal_uart.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_i2c_ex.h
 software\stm32h7xx_hal_uart.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pwr.h
 software\stm32h7xx_hal_uart.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pwr_ex.h
+software\stm32h7xx_hal_uart.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_spi.h
+software\stm32h7xx_hal_uart.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_spi_ex.h
 software\stm32h7xx_hal_uart.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim.h
 software\stm32h7xx_hal_uart.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h
 software\stm32h7xx_hal_uart.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h

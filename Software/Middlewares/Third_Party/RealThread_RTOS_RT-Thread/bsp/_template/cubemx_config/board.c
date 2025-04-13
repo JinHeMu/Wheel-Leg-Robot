@@ -64,9 +64,8 @@ void rt_hw_board_init(void)
      * 1: OS Tick Configuration
      * Enable the hardware timer and call the rt_os_tick_callback function
      * periodically with the frequency RT_TICK_PER_SECOND. 
-		 * HAL_SYSTICK_Config配置的为系统定时器的重载值,系统时钟为480MHZ,所以此处应该为系统频率
      */
-    HAL_SYSTICK_Config(480000000/RT_TICK_PER_SECOND);
+    HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()*2/RT_TICK_PER_SECOND);
 
     /* Call components board initial (use INIT_BOARD_EXPORT()) */
 #ifdef RT_USING_COMPONENTS_INIT
