@@ -56,3 +56,9 @@ software\main.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/rt
 software\main.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/rtm.h
 software\main.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/rtthread.h
 software\main.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/components/finsh/inc/finsh.h
+software\main.o: D:\keil_5.33\ARM\ARMCC\Bin\..\include\stdlib.h
+software\main.o: ..\User\Bsp\can_bsp.h
+software\main.o: ..\User\Devices\BMI088\BMI088driver.h
+software\main.o: ..\User\Bsp\bsp_dwt.h
+software\main.o: ..\User\Devices\BMI088\BMI088Middleware.h
+software\main.o: ..\User\Devices\DM_Motor\dm4310_drv.h
