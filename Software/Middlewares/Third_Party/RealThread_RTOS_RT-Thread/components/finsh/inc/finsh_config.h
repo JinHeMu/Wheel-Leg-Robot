@@ -14,7 +14,7 @@
 // <o>the stack of finsh thread <1-4096>
 //  <i>the stack of finsh thread
 //  <i>Default: 4096  (4096Byte)
-#define FINSH_THREAD_STACK_SIZE     1024
+#define FINSH_THREAD_STACK_SIZE     4096
 
 #define FINSH_USING_SYMTAB
 // <c1>Enable command description
@@ -22,6 +22,10 @@
 #define FINSH_USING_DESCRIPTION
 //  </c>
 // </h>
+/* 开启历史命令 */
+#define FINSH_USING_HISTORY
+/* 记录 5 行历史命令 */
+#define FINSH_HISTORY_LINES 5
 
 // <<< end of configuration section >>>
 #endif

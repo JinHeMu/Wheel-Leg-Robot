@@ -29,15 +29,6 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <rtthread.h>
-#include <stdlib.h> // 用于atof函数
-#include "can_bsp.h"
-#include "BMI088driver.h"
-// #include "kalman_filter.h"
-// #include "mahony_filter.h"
-#include "bsp_dwt.h"
-#include "BMI088Middleware.h"
-#include "can_bsp.h"
-#include "dm4310_drv.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -58,7 +49,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-uint8_t send_data[8] = {0,1,2,3,4,5,6,7};
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -70,47 +61,10 @@ void PeriphCommonClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-void enable_motor(void)
-{
-	enable_motor_mode(&hfdcan1, 0x01, MIT_MODE);
-}
-MSH_CMD_EXPORT(enable_motor, Enable Motor);
+/* 接收中断回调函数 */
 
-void disable_motor(void)
-{
-	disable_motor_mode(&hfdcan1, 0x01, MIT_MODE);
-}
-MSH_CMD_EXPORT(disable_motor,  Disable Motor);
 
-void motor_ctrl(int argc, char** argv)
-{
-    uint16_t motor_id;
-    float pos, vel, kp, kd, torq;
-    
-    // 参数检查
-    if (argc != 7)
-    {
-        rt_kprintf("Usage:  motor_id pos vel kp kd torq\n");
-        rt_kprintf("Example:  1 0.5 0.0 100.0 0.5 0.0\n");
-        return;
-    }
-    
-    // 解析参数
-    motor_id = (uint16_t)atoi(argv[1]);
-    pos = atof(argv[2]);
-    vel = atof(argv[3]);
-    kp = atof(argv[4]);
-    kd = atof(argv[5]);
-    torq = atof(argv[6]);
-    
-    // 调用原始函数
-    mit_ctrl(&hfdcan1, motor_id, pos, vel, kp, kd, torq);
-    
-}
-// 导出为MSH命令
-MSH_CMD_EXPORT(motor_ctrl, MIT motor control command);
-
-/* USER CODE END 0 */ 
+/* USER CODE END 0 */
 
 /**
   * @brief  The application entry point.
@@ -152,8 +106,6 @@ int main(void)
   MX_FDCAN3_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-	FDCAN1_Config();
-  FDCAN2_Config();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -164,15 +116,7 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 
-    //canx_send_data(&hfdcan1, 0x03, send_data, 8);
-
-    // //关节电机
-    // extern void mit_ctrl(hcan_t* hcan, uint16_t motor_id, float pos, float vel,float kp, float kd, float torq);
-    // extern void pos_speed_ctrl(hcan_t* hcan,uint16_t motor_id, float pos, float vel);
-    // extern void speed_ctrl(hcan_t* hcan,uint16_t motor_id, float _vel);
-
-    //mit_ctrl(&hfdcan1, 0x01, 0, 1, 0, 1, 0);
-		rt_thread_mdelay(2000);
+		rt_thread_mdelay(1000);
   }
   /* USER CODE END 3 */
 }

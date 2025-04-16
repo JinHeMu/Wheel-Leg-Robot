@@ -40,3 +40,13 @@ software\stm32h7xx_it.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_e
 software\stm32h7xx_it.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h
 software\stm32h7xx_it.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h
 software\stm32h7xx_it.o: ../Core/Inc/stm32h7xx_it.h
+software\stm32h7xx_it.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/rtthread.h
+software\stm32h7xx_it.o: ../RT-Thread/rtconfig.h
+software\stm32h7xx_it.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/components/finsh/inc/finsh_config.h
+software\stm32h7xx_it.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/rtdebug.h
+software\stm32h7xx_it.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/rtdef.h
+software\stm32h7xx_it.o: D:\keil_5.33\ARM\ARMCC\Bin\..\include\stdarg.h
+software\stm32h7xx_it.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/rtservice.h
+software\stm32h7xx_it.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/rtm.h
+software\stm32h7xx_it.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/rtthread.h
+software\stm32h7xx_it.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/components/finsh/inc/finsh.h

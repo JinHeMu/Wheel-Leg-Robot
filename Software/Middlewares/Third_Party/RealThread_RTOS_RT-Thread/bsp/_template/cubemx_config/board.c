@@ -77,11 +77,136 @@ void rt_hw_board_init(void)
 #endif
 }
 
-#ifdef RT_USING_CONSOLE
+
+
+#define rt_ringbuffer_space_len(rb) ((rb)->buffer_size - rt_ringbuffer_data_len(rb))
+struct rt_ringbuffer
+{
+    rt_uint8_t *buffer_ptr;
+
+    rt_uint16_t read_mirror : 1;
+    rt_uint16_t read_index : 15;
+    rt_uint16_t write_mirror : 1;
+    rt_uint16_t write_index : 15;
+
+    rt_int16_t buffer_size;
+};
+
+enum rt_ringbuffer_state
+{
+    RT_RINGBUFFER_EMPTY,
+    RT_RINGBUFFER_FULL,
+    /* half full is neither full nor empty */
+    RT_RINGBUFFER_HALFFULL,
+};
+
+rt_inline enum rt_ringbuffer_state rt_ringbuffer_status(struct rt_ringbuffer *rb)
+{
+    if (rb->read_index == rb->write_index)
+    {
+        if (rb->read_mirror == rb->write_mirror)
+            return RT_RINGBUFFER_EMPTY;
+        else
+            return RT_RINGBUFFER_FULL;
+    }
+    return RT_RINGBUFFER_HALFFULL;
+}
+
+rt_size_t rt_ringbuffer_data_len(struct rt_ringbuffer *rb)
+{
+    switch (rt_ringbuffer_status(rb))
+    {
+    case RT_RINGBUFFER_EMPTY:
+        return 0;
+    case RT_RINGBUFFER_FULL:
+        return rb->buffer_size;
+    case RT_RINGBUFFER_HALFFULL:
+    default:
+        if (rb->write_index > rb->read_index)
+            return rb->write_index - rb->read_index;
+        else
+            return rb->buffer_size - (rb->read_index - rb->write_index);
+    };
+}
+
+void rt_ringbuffer_init(struct rt_ringbuffer *rb,
+                        rt_uint8_t           *pool,
+                        rt_int16_t            size)
+{
+    RT_ASSERT(rb != RT_NULL);
+    RT_ASSERT(size > 0);
+
+    /* initialize read and write index */
+    rb->read_mirror = rb->read_index = 0;
+    rb->write_mirror = rb->write_index = 0;
+
+    /* set buffer pool and size */
+    rb->buffer_ptr = pool;
+    rb->buffer_size = RT_ALIGN_DOWN(size, RT_ALIGN_SIZE);
+}
+
+rt_size_t rt_ringbuffer_putchar(struct rt_ringbuffer *rb, const rt_uint8_t ch)
+{
+    RT_ASSERT(rb != RT_NULL);
+
+    /* whether has enough space */
+    if (!rt_ringbuffer_space_len(rb))
+        return 0;
+
+    rb->buffer_ptr[rb->write_index] = ch;
+
+    /* flip mirror */
+    if (rb->write_index == rb->buffer_size-1)
+    {
+        rb->write_mirror = ~rb->write_mirror;
+        rb->write_index = 0;
+    }
+    else
+    {
+        rb->write_index++;
+    }
+
+    return 1;
+}
+
+rt_size_t rt_ringbuffer_getchar(struct rt_ringbuffer *rb, rt_uint8_t *ch)
+{
+    RT_ASSERT(rb != RT_NULL);
+
+    /* ringbuffer is empty */
+    if (!rt_ringbuffer_data_len(rb))
+        return 0;
+
+    /* put character */
+    *ch = rb->buffer_ptr[rb->read_index];
+
+    if (rb->read_index == rb->buffer_size-1)
+    {
+        rb->read_mirror = ~rb->read_mirror;
+        rb->read_index = 0;
+    }
+    else
+    {
+        rb->read_index++;
+    }
+
+    return 1;
+}
+
+/* 第二部分：finsh 移植对接部分 */
+#define UART_RX_BUF_LEN 16
+rt_uint8_t uart_rx_buf[UART_RX_BUF_LEN] = {0};
+struct rt_ringbuffer  uart_rxcb;         /* 定义一个 ringbuffer cb */
+static UART_HandleTypeDef UartHandle;
+static struct rt_semaphore shell_rx_sem; /* 定义一个静态信号量 */
 
 static UART_HandleTypeDef UartHandle;
 static int uart_init(void)
 {
+		rt_ringbuffer_init(&uart_rxcb, uart_rx_buf, UART_RX_BUF_LEN);
+    /* 初始化串口接收数据的信号量 */
+    rt_sem_init(&(shell_rx_sem), "shell_rx", 0, 0);
+	
     /* TODO: Please modify the UART port number according to your needs */
     UartHandle.Instance = USART1;
     UartHandle.Init.BaudRate = 115200;
@@ -96,10 +221,19 @@ static int uart_init(void)
     {
         while (1);
     }
+		
+		    /* 中断配置 */
+    __HAL_UART_ENABLE_IT(&UartHandle, UART_IT_RXNE);
+    HAL_NVIC_EnableIRQ(USART1_IRQn);
+    HAL_NVIC_SetPriority(USART1_IRQn, 3, 3);
+		
     return 0;
 }
 INIT_BOARD_EXPORT(uart_init);
 
+
+
+/* 移植控制台，实现控制台输出, 对接 rt_hw_console_output */
 void rt_hw_console_output(const char *str)
 {
     rt_size_t i = 0, size = 0;
@@ -108,7 +242,6 @@ void rt_hw_console_output(const char *str)
     __HAL_UNLOCK(&UartHandle);
 
     size = rt_strlen(str);
-
     for (i = 0; i < size; i++)
     {
         if (*(str + i) == '\n')
@@ -118,22 +251,50 @@ void rt_hw_console_output(const char *str)
         HAL_UART_Transmit(&UartHandle, (uint8_t *)(str + i), 1, 1);
     }
 }
-#endif
 
-#ifdef RT_USING_FINSH
+
+/* 移植 FinSH，实现命令行交互, 需要添加 FinSH 源码，然后再对接 rt_hw_console_getchar */
+/* 中断方式 */
 char rt_hw_console_getchar(void)
 {
-    /* Note: the initial value of ch must < 0 */
-    int ch = -1;
+    char ch = 0;
 
-    if (__HAL_UART_GET_FLAG(&UartHandle, UART_FLAG_RXNE) != RESET)
+    /* 从 ringbuffer 中拿出数据 */
+    while (rt_ringbuffer_getchar(&uart_rxcb, (rt_uint8_t *)&ch) != 1)
     {
-        ch = UartHandle.Instance->RDR & 0xff;
-    }
-    else
-    {
-        rt_thread_mdelay(10);
+        rt_sem_take(&shell_rx_sem, RT_WAITING_FOREVER);
     }
     return ch;
 }
-#endif
+
+/* uart 中断 */
+void USART1_IRQHandler(void)
+{
+    int ch = -1;
+    /* enter interrupt */
+    rt_interrupt_enter();          //在中断中一定要调用这对函数，进入中断
+
+    if ((__HAL_UART_GET_FLAG(&(UartHandle), UART_FLAG_RXNE) != RESET) &&
+        (__HAL_UART_GET_IT_SOURCE(&(UartHandle), UART_IT_RXNE) != RESET))
+    {
+        while (1)
+        {
+            ch = -1;
+            if (__HAL_UART_GET_FLAG(&(UartHandle), UART_FLAG_RXNE) != RESET)
+            {
+                ch =  UartHandle.Instance->RDR & 0xff;
+            }
+            if (ch == -1)
+            {
+                break;
+            }
+            /* 读取到数据，将数据存入 ringbuffer */
+            rt_ringbuffer_putchar(&uart_rxcb, ch);
+        }
+        rt_sem_release(&shell_rx_sem);
+    }
+
+    /* leave interrupt */
+    rt_interrupt_leave();    //在中断中一定要调用这对函数，离开中断
+}
+
