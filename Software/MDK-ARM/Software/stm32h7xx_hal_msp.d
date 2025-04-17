@@ -39,3 +39,5 @@ software\stm32h7xx_hal_msp.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_
 software\stm32h7xx_hal_msp.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h
 software\stm32h7xx_hal_msp.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h
 software\stm32h7xx_hal_msp.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h
+software\stm32h7xx_hal_msp.o: ..\User\Bsp\bsp_dwt.h
+software\stm32h7xx_hal_msp.o: ../Core/Inc/main.h

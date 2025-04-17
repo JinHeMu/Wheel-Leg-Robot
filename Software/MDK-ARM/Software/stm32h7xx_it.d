@@ -39,6 +39,8 @@ software\stm32h7xx_it.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim.h
 software\stm32h7xx_it.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h
 software\stm32h7xx_it.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h
 software\stm32h7xx_it.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h
+software\stm32h7xx_it.o: ..\User\Bsp\bsp_dwt.h
+software\stm32h7xx_it.o: ../Core/Inc/main.h
 software\stm32h7xx_it.o: ../Core/Inc/stm32h7xx_it.h
 software\stm32h7xx_it.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/rtthread.h
 software\stm32h7xx_it.o: ../RT-Thread/rtconfig.h

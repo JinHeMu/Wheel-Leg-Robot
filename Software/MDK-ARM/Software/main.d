@@ -39,6 +39,8 @@ software\main.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim.h
 software\main.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h
 software\main.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h
 software\main.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h
+software\main.o: ..\User\Bsp\bsp_dwt.h
+software\main.o: ../Core/Inc/main.h
 software\main.o: ../Core/Inc/dma.h
 software\main.o: ../Core/Inc/fdcan.h
 software\main.o: ../Core/Inc/memorymap.h
@@ -56,3 +58,13 @@ software\main.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/rt
 software\main.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/rtm.h
 software\main.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/rtthread.h
 software\main.o: ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/components/finsh/inc/finsh.h
+software\main.o: ..\User\Devices\BMI088\BMI088driver.h
+software\main.o: ..\User\Algorithm\kalman\kalman_filter.h
+software\main.o: ..\Drivers\CMSIS\DSP\Include\arm_math.h
+software\main.o: D:\keil_5.33\ARM\ARMCC\Bin\..\include\string.h
+software\main.o: D:\keil_5.33\ARM\ARMCC\Bin\..\include\float.h
+software\main.o: D:\keil_5.33\ARM\ARMCC\Bin\..\include\stdlib.h
+software\main.o: ..\User\Algorithm\mahony\mahony_filter.h
+software\main.o: ..\User\Devices\BMI088\BMI088Middleware.h
+software\main.o: ..\User\Bsp\can_bsp.h
+software\main.o: ..\User\Devices\DM_Motor\dm4310_drv.h

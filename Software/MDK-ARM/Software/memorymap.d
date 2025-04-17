@@ -40,3 +40,5 @@ software\memorymap.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim.h
 software\memorymap.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h
 software\memorymap.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h
 software\memorymap.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h
+software\memorymap.o: ..\User\Bsp\bsp_dwt.h
+software\memorymap.o: ../Core/Inc/main.h

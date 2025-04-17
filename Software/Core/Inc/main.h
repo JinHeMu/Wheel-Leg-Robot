@@ -31,7 +31,7 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "bsp_dwt.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -75,7 +75,8 @@ void Error_Handler(void);
 #define CLK_GPIO_Port GPIOE
 
 /* USER CODE BEGIN Private defines */
-
+typedef float fp32;
+typedef double fp64;
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

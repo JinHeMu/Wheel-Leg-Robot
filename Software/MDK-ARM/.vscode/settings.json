@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "dm4310_drv.h": "c",
+        "bmi088middleware.h": "c",
+        "bmi088driver.h": "c",
+        "bsp_dwt.h": "c",
+        "main.h": "c",
+        "user_lib.h": "c",
+        "stdint.h": "c",
+        "controller.h": "c",
+        "ins_task.h": "c"
+    }
+}

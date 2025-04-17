@@ -81,7 +81,7 @@
           </BeforeMake>
           <AfterMake>
             <RunUserProg1>0</RunUserProg1>
-            <RunUserProg2>1</RunUserProg2>
+            <RunUserProg2>0</RunUserProg2>
             <UserProg1Name></UserProg1Name>
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define>USE_PWR_LDO_SUPPLY,USE_HAL_DRIVER,STM32H723xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../RT-Thread;../Drivers/STM32H7xx_HAL_Driver/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32H7xx/Include;../Drivers/CMSIS/Include;../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/components/finsh/inc/;../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/;../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/include/;../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/extension/;../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/extension/fcntl/msvc/;../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/extension/fcntl/octal/</IncludePath>
+              <IncludePath>../Core/Inc;../RT-Thread;../Drivers/STM32H7xx_HAL_Driver/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32H7xx/Include;../Drivers/CMSIS/Include;../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/components/finsh/inc/;../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/;../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/include/;../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/extension/;../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/extension/fcntl/msvc/;../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/extension/fcntl/octal/;..\Drivers\CMSIS\DSP\Include;..\User\Bsp;..\User\Devices\BMI088;..\User\Devices\DM_Motor;..\User\Controller;..\User\Lib;..\User\Algorithm\EKF;..\User\Algorithm\kalman;..\User\Algorithm\mahony;..\User\Algorithm\PID;..\User\Algorithm\VMC;..\User\APP</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -2320,6 +2320,136 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>Dsp</GroupName>
+          <Files>
+            <File>
+              <FileName>arm_cortexM7lfdp_math.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\Drivers\CMSIS\DSP\Lib\ARM\arm_cortexM7lfdp_math.lib</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Bsp</GroupName>
+          <Files>
+            <File>
+              <FileName>bsp_dwt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Bsp\bsp_dwt.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_PWM.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Bsp\bsp_PWM.c</FilePath>
+            </File>
+            <File>
+              <FileName>can_bsp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Bsp\can_bsp.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Devices</GroupName>
+          <Files>
+            <File>
+              <FileName>BMI088driver.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Devices\BMI088\BMI088driver.c</FilePath>
+            </File>
+            <File>
+              <FileName>BMI088Middleware.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Devices\BMI088\BMI088Middleware.c</FilePath>
+            </File>
+            <File>
+              <FileName>dm4310_drv.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Devices\DM_Motor\dm4310_drv.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Controller</GroupName>
+          <Files>
+            <File>
+              <FileName>controller.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Controller\controller.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Lib</GroupName>
+          <Files>
+            <File>
+              <FileName>user_lib.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Lib\user_lib.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Algorithm</GroupName>
+          <Files>
+            <File>
+              <FileName>QuaternionEKF.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Algorithm\EKF\QuaternionEKF.c</FilePath>
+            </File>
+            <File>
+              <FileName>kalman_filter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Algorithm\kalman\kalman_filter.c</FilePath>
+            </File>
+            <File>
+              <FileName>mahony_filter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Algorithm\mahony\mahony_filter.c</FilePath>
+            </File>
+            <File>
+              <FileName>pid.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Algorithm\PID\pid.c</FilePath>
+            </File>
+            <File>
+              <FileName>VMC_calc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Algorithm\VMC\VMC_calc.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>App</GroupName>
+          <Files>
+            <File>
+              <FileName>INS_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\APP\INS_task.c</FilePath>
+            </File>
+            <File>
+              <FileName>chassisL_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\APP\chassisL_task.c</FilePath>
+            </File>
+            <File>
+              <FileName>chassisR_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\APP\chassisR_task.c</FilePath>
+            </File>
+            <File>
+              <FileName>observe_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\APP\observe_task.c</FilePath>
+            </File>
+            <File>
+              <FileName>ps2_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\APP\ps2_task.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>::CMSIS</GroupName>
         </Group>
       </Groups>
@@ -2338,5 +2468,14 @@
     </components>
     <files/>
   </RTE>
+
+  <LayerInfo>
+    <Layers>
+      <Layer>
+        <LayName>Software</LayName>
+        <LayPrjMark>1</LayPrjMark>
+      </Layer>
+    </Layers>
+  </LayerInfo>
 
 </Project>

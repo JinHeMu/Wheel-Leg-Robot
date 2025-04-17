@@ -29,6 +29,13 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <rtthread.h>
+#include "BMI088driver.h"
+#include "kalman_filter.h"
+#include "mahony_filter.h"
+#include "bsp_dwt.h"
+#include "BMI088Middleware.h"
+#include "can_bsp.h"
+#include "dm4310_drv.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -49,7 +56,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+uint8_t sent_data[8] = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -61,8 +68,20 @@ void PeriphCommonClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-/* 接收中断回调函数 */
+void can_sent_test()
+{
+	canx_send_data(&hfdcan1, 0x01, sent_data, 8);
+}MSH_CMD_EXPORT(can_sent_test, can sent test);
 
+void enable_motor_test()
+{
+	enable_motor_mode(&hfdcan1, 0x01, MIT_MODE);
+}MSH_CMD_EXPORT(enable_motor_test, enable_motor_test sent test);
+
+void disable_motor_test()
+{
+	disable_motor_mode(&hfdcan1, 0x01, MIT_MODE);
+}MSH_CMD_EXPORT(disable_motor_test, disable_motor_test sent test);
 
 /* USER CODE END 0 */
 
@@ -106,6 +125,8 @@ int main(void)
   MX_FDCAN3_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
+  FDCAN1_Config();
+  FDCAN2_Config();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -115,7 +136,6 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-
 		rt_thread_mdelay(1000);
   }
   /* USER CODE END 3 */

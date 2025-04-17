@@ -1,0 +1,10 @@
+software\kalman_filter.o: ..\User\Algorithm\kalman\kalman_filter.c
+software\kalman_filter.o: ..\User\Algorithm\kalman\kalman_filter.h
+software\kalman_filter.o: ..\Drivers\CMSIS\DSP\Include\arm_math.h
+software\kalman_filter.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
+software\kalman_filter.o: D:\keil_5.33\ARM\ARMCC\Bin\..\include\stdint.h
+software\kalman_filter.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
+software\kalman_filter.o: D:\keil_5.33\ARM\ARMCC\Bin\..\include\string.h
+software\kalman_filter.o: D:\keil_5.33\ARM\ARMCC\Bin\..\include\math.h
+software\kalman_filter.o: D:\keil_5.33\ARM\ARMCC\Bin\..\include\float.h
+software\kalman_filter.o: D:\keil_5.33\ARM\ARMCC\Bin\..\include\stdlib.h
