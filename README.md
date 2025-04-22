@@ -39,6 +39,7 @@ can通讯配置初始化,发送和接受can数据(中断),同时注意不同HAL�
 欧拉角: Yaw,Pitch,Roll($\alpha, \beta, \gamma$ ).
 
 旋转矩阵:
+
 $$
 \mathbf{R}_b^e = 
 \begin{bmatrix}
