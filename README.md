@@ -47,6 +47,7 @@ $$
 2(q_1q_3 - q_0q_2)   & 2(q_2q_3 + q_0q_1)     & 1 - 2(q_1^2 + q_2^2)
 \end{bmatrix}
 $$
+
 $$
 \mathbf{R}_b^e = \mathbf{R}_z(\psi) \mathbf{R}_y(\theta) \mathbf{R}_x(\phi) =
 \begin{bmatrix}
@@ -55,6 +56,7 @@ $$
 -\sin\theta         & \cos\theta \sin\phi                              & \cos\theta \cos\phi
 \end{bmatrix}
 $$
+
 $$
 \begin{align*}
 \alpha &= \arctan 2(R_{32}, R_{33}) \\
@@ -64,3 +66,4 @@ $$
 $$
 
 mahony滤波:用真实加速度修正积分的误差
+
