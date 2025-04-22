@@ -104,7 +104,7 @@ void INS_task(void)
 			INS.Pitch = mahony.roll;
 			INS.Roll = mahony.pitch;
 			INS.Yaw = mahony.yaw;
-
+		
 			// INS.YawTotalAngle=INS.YawTotalAngle+INS.Gyro[2]*0.001f;
 
 			if (INS.Yaw - INS.YawAngleLast > 3.1415926f)
@@ -122,7 +122,6 @@ void INS_task(void)
 		{
 			ins_time++;
 		}
-
 		rt_thread_mdelay(1);
 	}
 }

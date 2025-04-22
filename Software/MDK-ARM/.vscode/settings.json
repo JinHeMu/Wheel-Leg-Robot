@@ -8,6 +8,7 @@
         "user_lib.h": "c",
         "stdint.h": "c",
         "controller.h": "c",
-        "ins_task.h": "c"
+        "ins_task.h": "c",
+        "thread.h": "c"
     }
 }

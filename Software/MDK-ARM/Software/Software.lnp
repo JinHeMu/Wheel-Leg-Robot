@@ -80,6 +80,7 @@
 "software\chassisr_task.o"
 "software\observe_task.o"
 "software\ps2_task.o"
+"software\thread_1.o"
 --strict --scatter "Software\Software.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
