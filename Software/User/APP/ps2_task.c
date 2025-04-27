@@ -78,6 +78,9 @@ void PS2_Cmd(uint8_t CMD)
 		HAL_GPIO_WritePin(GPIOE, GPIO_PIN_13, GPIO_PIN_SET);                        // ±÷”¿≠∏ﬂ
 		DWT_Delay(0.000005f);
 		HAL_GPIO_WritePin(GPIOE, GPIO_PIN_13, GPIO_PIN_RESET);
+
+
+		
 		DWT_Delay(0.000005f);
 		HAL_GPIO_WritePin(GPIOE, GPIO_PIN_13, GPIO_PIN_SET);
 		if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0))
@@ -398,5 +401,13 @@ void PS2_SetInit(void)
 }
 
 
+void start(void)
+{
+	chassis_move.start_flag=1;
+}MSH_CMD_EXPORT(start, start flag 1);
 
+void stop(void)
+{
+	chassis_move.start_flag=0;
+}MSH_CMD_EXPORT(stop, start flag 0);
 

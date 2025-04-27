@@ -779,7 +779,7 @@
 
   <Group>
     <GroupName>Middlewares/RT-Thread/RTOS/kernel</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -787,7 +787,7 @@
       <GroupNumber>8</GroupNumber>
       <FileNumber>46</FileNumber>
       <FileType>1</FileType>
-      <tvExp>1</tvExp>
+      <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/src/clock.c</PathWithFileName>
@@ -1055,7 +1055,7 @@
 
   <Group>
     <GroupName>Devices</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -1099,7 +1099,7 @@
 
   <Group>
     <GroupName>Controller</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -1119,7 +1119,7 @@
 
   <Group>
     <GroupName>Lib</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -1139,7 +1139,7 @@
 
   <Group>
     <GroupName>Algorithm</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -1278,8 +1278,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\User\APP\thread.c</PathWithFileName>
-      <FilenameWithoutPath>thread.c</FilenameWithoutPath>
+      <PathWithFileName>..\User\APP\thread_init.c</PathWithFileName>
+      <FilenameWithoutPath>thread_init.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

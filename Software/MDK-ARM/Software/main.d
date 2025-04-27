@@ -68,3 +68,12 @@ software\main.o: ..\User\Algorithm\mahony\mahony_filter.h
 software\main.o: ..\User\Devices\BMI088\BMI088Middleware.h
 software\main.o: ..\User\Bsp\can_bsp.h
 software\main.o: ..\User\Devices\DM_Motor\dm4310_drv.h
+software\main.o: ..\User\APP\thread_init.h
+software\main.o: ..\User\APP\INS_task.h
+software\main.o: ..\User\Algorithm\EKF\QuaternionEKF.h
+software\main.o: ..\User\APP\chassisL_task.h
+software\main.o: ..\User\APP\chassisR_task.h
+software\main.o: ..\User\Algorithm\PID\pid.h
+software\main.o: ..\User\Algorithm\VMC\VMC_calc.h
+software\main.o: ..\User\APP\observe_task.h
+software\main.o: ..\User\APP\ps2_task.h

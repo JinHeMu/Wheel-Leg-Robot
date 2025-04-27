@@ -36,6 +36,7 @@
 #include "BMI088Middleware.h"
 #include "can_bsp.h"
 #include "dm4310_drv.h"
+#include "thread_init.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -68,23 +69,10 @@ void PeriphCommonClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-void can_sent_test()
+void ctrl2_test(void)
 {
-	canx_send_data(&hfdcan1, 0x01, sent_data, 8);
-}MSH_CMD_EXPORT(can_sent_test, can sent test);
-
-void enable_motor_test()
-{
-	enable_motor_mode(&hfdcan2, 0x01, MIT_MODE);
-	enable_motor_mode(&hfdcan2, 0x06, MIT_MODE);
-}MSH_CMD_EXPORT(enable_motor_test, enable_motor_test sent test);
-
-void disable_motor_test()
-{
-	disable_motor_mode(&hfdcan2, 0x01, MIT_MODE);
-	disable_motor_mode(&hfdcan2, 0x06, MIT_MODE);
-}MSH_CMD_EXPORT(disable_motor_test, disable_motor_test sent test);
-
+	mit_ctrl2(&hfdcan1, 1, 0, 1, 0, 0.1, 0);
+}MSH_CMD_EXPORT(ctrl2_test, ctrl2_test);
 /* USER CODE END 0 */
 
 /**
@@ -138,6 +126,7 @@ int main(void)
 	
   FDCAN1_Config();
   FDCAN2_Config();
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -147,6 +136,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+
 		rt_thread_mdelay(1000);
   }
   /* USER CODE END 3 */

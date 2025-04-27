@@ -1,7 +1,7 @@
 Dependencies for Project 'Software', Target 'Software': (DO NOT MODIFY !)
 CompilerVersion: 5060960::V5.06 update 7 (build 960)::.\ARMCC
 F (startup_stm32h723xx.s)(0x67FF88A8)(--cpu Cortex-M7.fp.dp -g --apcs=interwork -I.\RTE\_Software-ID:\keil_5.33\ARM\CMSIS\5.7.0\CMSIS\Core\Include--pd "__UVISION_VERSION SETA 533" --pd "_RTE_ SETA 1" --pd "STM32H723xx SETA 1" --pd "_RTE_ SETA 1"--list startup_stm32h723xx.lst --xref -o software\startup_stm32h723xx.o --depend software\startup_stm32h723xx.d)
-F (../Core/Src/main.c)(0x680707DA)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../RT-Thread -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/components/finsh/inc/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/include/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/extension/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/extension/fcntl/msvc/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/extension/fcntl/octal/ -I ..\Drivers\CMSIS\DSP\Include -I ..\User\Bsp -I ..\User\Devices\BMI088 -I ..\User\Devices\DM_Motor -I ..\User\Controller -I ..\User\Lib -I ..\User\Algorithm\EKF -I ..\User\Algorithm\kalman -I ..\User\Algorithm\mahony -I ..\User\Algorithm\PID -I ..\User\Algorithm\VMC -I ..\User\APP-I.\RTE\_Software-ID:\keil_5.33\ARM\CMSIS\5.7.0\CMSIS\Core\Include-D__UVISION_VERSION="533" -D_RTE_ -DSTM32H723xx -D_RTE_ -DUSE_PWR_LDO_SUPPLY -DUSE_HAL_DRIVER -DSTM32H723xx-o software\main.o --omf_browse software\main.crf --depend software\main.d)
+F (../Core/Src/main.c)(0x680DBFD4)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../RT-Thread -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/components/finsh/inc/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/include/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/extension/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/extension/fcntl/msvc/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/extension/fcntl/octal/ -I ..\Drivers\CMSIS\DSP\Include -I ..\User\Bsp -I ..\User\Devices\BMI088 -I ..\User\Devices\DM_Motor -I ..\User\Controller -I ..\User\Lib -I ..\User\Algorithm\EKF -I ..\User\Algorithm\kalman -I ..\User\Algorithm\mahony -I ..\User\Algorithm\PID -I ..\User\Algorithm\VMC -I ..\User\APP-I.\RTE\_Software-ID:\keil_5.33\ARM\CMSIS\5.7.0\CMSIS\Core\Include-D__UVISION_VERSION="533" -D_RTE_ -DSTM32H723xx -D_RTE_ -DUSE_PWR_LDO_SUPPLY -DUSE_HAL_DRIVER -DSTM32H723xx-o software\main.o --omf_browse software\main.crf --depend software\main.d)
 I (../Core/Inc/main.h)(0x68005B0D)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h)(0x67FF81F0)
 I (../Core/Inc/stm32h7xx_hal_conf.h)(0x67FF8899)
@@ -68,6 +68,15 @@ I (..\User\Algorithm\mahony\mahony_filter.h)(0x66739407)
 I (..\User\Devices\BMI088\BMI088Middleware.h)(0x66739407)
 I (..\User\Bsp\can_bsp.h)(0x66739407)
 I (..\User\Devices\DM_Motor\dm4310_drv.h)(0x66739407)
+I (..\User\APP\thread_init.h)(0x680DB91D)
+I (..\User\APP\INS_task.h)(0x66739407)
+I (..\User\Algorithm\EKF\QuaternionEKF.h)(0x66739407)
+I (..\User\APP\chassisL_task.h)(0x66739407)
+I (..\User\APP\chassisR_task.h)(0x66739407)
+I (..\User\Algorithm\PID\pid.h)(0x66739407)
+I (..\User\Algorithm\VMC\VMC_calc.h)(0x680CF6DB)
+I (..\User\APP\observe_task.h)(0x66739407)
+I (..\User\APP\ps2_task.h)(0x66739407)
 F (../Core/Src/gpio.c)(0x67FF8897)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../RT-Thread -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/components/finsh/inc/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/include/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/extension/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/extension/fcntl/msvc/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/extension/fcntl/octal/ -I ..\Drivers\CMSIS\DSP\Include -I ..\User\Bsp -I ..\User\Devices\BMI088 -I ..\User\Devices\DM_Motor -I ..\User\Controller -I ..\User\Lib -I ..\User\Algorithm\EKF -I ..\User\Algorithm\kalman -I ..\User\Algorithm\mahony -I ..\User\Algorithm\PID -I ..\User\Algorithm\VMC -I ..\User\APP-I.\RTE\_Software-ID:\keil_5.33\ARM\CMSIS\5.7.0\CMSIS\Core\Include-D__UVISION_VERSION="533" -D_RTE_ -DSTM32H723xx -D_RTE_ -DUSE_PWR_LDO_SUPPLY -DUSE_HAL_DRIVER -DSTM32H723xx-o software\gpio.o --omf_browse software\gpio.crf --depend software\gpio.d)
 I (../Core/Inc/gpio.h)(0x67FF8897)
 I (../Core/Inc/main.h)(0x68005B0D)
@@ -1923,7 +1932,7 @@ I (..\User\Devices\DM_Motor\dm4310_drv.h)(0x66739407)
 I (D:\keil_5.33\ARM\ARMCC\include\string.h)(0x5E8E2EB2)
 I (..\User\APP\chassisR_task.h)(0x66739407)
 I (..\User\Algorithm\PID\pid.h)(0x66739407)
-I (..\User\Algorithm\VMC\VMC_calc.h)(0x680059D8)
+I (..\User\Algorithm\VMC\VMC_calc.h)(0x680CF6DB)
 I (..\User\APP\INS_task.h)(0x66739407)
 I (..\User\Devices\BMI088\BMI088driver.h)(0x66739407)
 I (..\User\Algorithm\EKF\QuaternionEKF.h)(0x66739407)
@@ -2263,7 +2272,7 @@ I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h)(0x67FF81F0)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h)(0x67FF81F0)
 I (..\User\Bsp\bsp_dwt.h)(0x66739407)
 F (..\User\Algorithm\VMC\VMC_calc.c)(0x66739407)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../RT-Thread -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/components/finsh/inc/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/include/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/extension/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/extension/fcntl/msvc/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/extension/fcntl/octal/ -I ..\Drivers\CMSIS\DSP\Include -I ..\User\Bsp -I ..\User\Devices\BMI088 -I ..\User\Devices\DM_Motor -I ..\User\Controller -I ..\User\Lib -I ..\User\Algorithm\EKF -I ..\User\Algorithm\kalman -I ..\User\Algorithm\mahony -I ..\User\Algorithm\PID -I ..\User\Algorithm\VMC -I ..\User\APP-I.\RTE\_Software-ID:\keil_5.33\ARM\CMSIS\5.7.0\CMSIS\Core\Include-D__UVISION_VERSION="533" -D_RTE_ -DSTM32H723xx -D_RTE_ -DUSE_PWR_LDO_SUPPLY -DUSE_HAL_DRIVER -DSTM32H723xx-o software\vmc_calc.o --omf_browse software\vmc_calc.crf --depend software\vmc_calc.d)
-I (..\User\Algorithm\VMC\VMC_calc.h)(0x680059D8)
+I (..\User\Algorithm\VMC\VMC_calc.h)(0x680CF6DB)
 I (../Core/Inc/main.h)(0x68005B0D)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h)(0x67FF81F0)
 I (../Core/Inc/stm32h7xx_hal_conf.h)(0x67FF8899)
@@ -2422,7 +2431,7 @@ I (../Core/Inc/fdcan.h)(0x67FF8898)
 I (..\User\Bsp\can_bsp.h)(0x66739407)
 I (..\User\APP\chassisR_task.h)(0x66739407)
 I (..\User\Algorithm\PID\pid.h)(0x66739407)
-I (..\User\Algorithm\VMC\VMC_calc.h)(0x680059D8)
+I (..\User\Algorithm\VMC\VMC_calc.h)(0x680CF6DB)
 I (..\User\APP\INS_task.h)(0x66739407)
 I (..\User\Devices\BMI088\BMI088driver.h)(0x66739407)
 I (..\User\Algorithm\EKF\QuaternionEKF.h)(0x66739407)
@@ -2440,7 +2449,7 @@ I (D:\keil_5.33\ARM\ARMCC\include\stdarg.h)(0x5E8E2EB2)
 I (../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/rtservice.h)(0x67FF7FFB)
 I (../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/rtm.h)(0x67FF7FFB)
 I (../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/components/finsh/inc/finsh.h)(0x67FF7FFB)
-F (..\User\APP\chassisR_task.c)(0x68005CCB)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../RT-Thread -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/components/finsh/inc/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/include/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/extension/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/extension/fcntl/msvc/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/extension/fcntl/octal/ -I ..\Drivers\CMSIS\DSP\Include -I ..\User\Bsp -I ..\User\Devices\BMI088 -I ..\User\Devices\DM_Motor -I ..\User\Controller -I ..\User\Lib -I ..\User\Algorithm\EKF -I ..\User\Algorithm\kalman -I ..\User\Algorithm\mahony -I ..\User\Algorithm\PID -I ..\User\Algorithm\VMC -I ..\User\APP-I.\RTE\_Software-ID:\keil_5.33\ARM\CMSIS\5.7.0\CMSIS\Core\Include-D__UVISION_VERSION="533" -D_RTE_ -DSTM32H723xx -D_RTE_ -DUSE_PWR_LDO_SUPPLY -DUSE_HAL_DRIVER -DSTM32H723xx-o software\chassisr_task.o --omf_browse software\chassisr_task.crf --depend software\chassisr_task.d)
+F (..\User\APP\chassisR_task.c)(0x680D9F18)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../RT-Thread -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/components/finsh/inc/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/include/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/extension/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/extension/fcntl/msvc/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/extension/fcntl/octal/ -I ..\Drivers\CMSIS\DSP\Include -I ..\User\Bsp -I ..\User\Devices\BMI088 -I ..\User\Devices\DM_Motor -I ..\User\Controller -I ..\User\Lib -I ..\User\Algorithm\EKF -I ..\User\Algorithm\kalman -I ..\User\Algorithm\mahony -I ..\User\Algorithm\PID -I ..\User\Algorithm\VMC -I ..\User\APP-I.\RTE\_Software-ID:\keil_5.33\ARM\CMSIS\5.7.0\CMSIS\Core\Include-D__UVISION_VERSION="533" -D_RTE_ -DSTM32H723xx -D_RTE_ -DUSE_PWR_LDO_SUPPLY -DUSE_HAL_DRIVER -DSTM32H723xx-o software\chassisr_task.o --omf_browse software\chassisr_task.crf --depend software\chassisr_task.d)
 I (..\User\APP\chassisR_task.h)(0x66739407)
 I (../Core/Inc/main.h)(0x68005B0D)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h)(0x67FF81F0)
@@ -2486,7 +2495,7 @@ I (..\User\Devices\DM_Motor\dm4310_drv.h)(0x66739407)
 I (../Core/Inc/fdcan.h)(0x67FF8898)
 I (..\User\Bsp\can_bsp.h)(0x66739407)
 I (..\User\Algorithm\PID\pid.h)(0x66739407)
-I (..\User\Algorithm\VMC\VMC_calc.h)(0x680059D8)
+I (..\User\Algorithm\VMC\VMC_calc.h)(0x680CF6DB)
 I (..\User\APP\INS_task.h)(0x66739407)
 I (..\User\Devices\BMI088\BMI088driver.h)(0x66739407)
 I (..\User\Algorithm\EKF\QuaternionEKF.h)(0x66739407)
@@ -2560,7 +2569,7 @@ I (../Core/Inc/fdcan.h)(0x67FF8898)
 I (..\User\Bsp\can_bsp.h)(0x66739407)
 I (..\User\APP\chassisR_task.h)(0x66739407)
 I (..\User\Algorithm\PID\pid.h)(0x66739407)
-I (..\User\Algorithm\VMC\VMC_calc.h)(0x680059D8)
+I (..\User\Algorithm\VMC\VMC_calc.h)(0x680CF6DB)
 I (../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/rtthread.h)(0x67FF7FFB)
 I (../RT-Thread/rtconfig.h)(0x68070F98)
 I (../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/components/finsh/inc/finsh_config.h)(0x67FF8989)
@@ -2570,7 +2579,7 @@ I (D:\keil_5.33\ARM\ARMCC\include\stdarg.h)(0x5E8E2EB2)
 I (../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/rtservice.h)(0x67FF7FFB)
 I (../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/rtm.h)(0x67FF7FFB)
 I (../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/components/finsh/inc/finsh.h)(0x67FF7FFB)
-F (..\User\APP\ps2_task.c)(0x68005CCB)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../RT-Thread -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/components/finsh/inc/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/include/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/extension/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/extension/fcntl/msvc/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/extension/fcntl/octal/ -I ..\Drivers\CMSIS\DSP\Include -I ..\User\Bsp -I ..\User\Devices\BMI088 -I ..\User\Devices\DM_Motor -I ..\User\Controller -I ..\User\Lib -I ..\User\Algorithm\EKF -I ..\User\Algorithm\kalman -I ..\User\Algorithm\mahony -I ..\User\Algorithm\PID -I ..\User\Algorithm\VMC -I ..\User\APP-I.\RTE\_Software-ID:\keil_5.33\ARM\CMSIS\5.7.0\CMSIS\Core\Include-D__UVISION_VERSION="533" -D_RTE_ -DSTM32H723xx -D_RTE_ -DUSE_PWR_LDO_SUPPLY -DUSE_HAL_DRIVER -DSTM32H723xx-o software\ps2_task.o --omf_browse software\ps2_task.crf --depend software\ps2_task.d)
+F (..\User\APP\ps2_task.c)(0x680DAE67)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../RT-Thread -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/components/finsh/inc/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/include/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/extension/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/extension/fcntl/msvc/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/extension/fcntl/octal/ -I ..\Drivers\CMSIS\DSP\Include -I ..\User\Bsp -I ..\User\Devices\BMI088 -I ..\User\Devices\DM_Motor -I ..\User\Controller -I ..\User\Lib -I ..\User\Algorithm\EKF -I ..\User\Algorithm\kalman -I ..\User\Algorithm\mahony -I ..\User\Algorithm\PID -I ..\User\Algorithm\VMC -I ..\User\APP-I.\RTE\_Software-ID:\keil_5.33\ARM\CMSIS\5.7.0\CMSIS\Core\Include-D__UVISION_VERSION="533" -D_RTE_ -DSTM32H723xx -D_RTE_ -DUSE_PWR_LDO_SUPPLY -DUSE_HAL_DRIVER -DSTM32H723xx-o software\ps2_task.o --omf_browse software\ps2_task.crf --depend software\ps2_task.d)
 I (..\User\APP\ps2_task.h)(0x66739407)
 I (../Core/Inc/main.h)(0x68005B0D)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h)(0x67FF81F0)
@@ -2617,7 +2626,7 @@ I (..\User\Devices\DM_Motor\dm4310_drv.h)(0x66739407)
 I (../Core/Inc/fdcan.h)(0x67FF8898)
 I (..\User\Bsp\can_bsp.h)(0x66739407)
 I (..\User\Algorithm\PID\pid.h)(0x66739407)
-I (..\User\Algorithm\VMC\VMC_calc.h)(0x680059D8)
+I (..\User\Algorithm\VMC\VMC_calc.h)(0x680CF6DB)
 I (..\User\APP\INS_task.h)(0x66739407)
 I (..\User\Devices\BMI088\BMI088driver.h)(0x66739407)
 I (..\User\Algorithm\EKF\QuaternionEKF.h)(0x66739407)
@@ -2636,8 +2645,8 @@ I (D:\keil_5.33\ARM\ARMCC\include\stdarg.h)(0x5E8E2EB2)
 I (../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/rtservice.h)(0x67FF7FFB)
 I (../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/rtm.h)(0x67FF7FFB)
 I (../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/components/finsh/inc/finsh.h)(0x67FF7FFB)
-F (..\User\APP\thread.c)(0x68071315)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../RT-Thread -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/components/finsh/inc/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/include/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/extension/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/extension/fcntl/msvc/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/extension/fcntl/octal/ -I ..\Drivers\CMSIS\DSP\Include -I ..\User\Bsp -I ..\User\Devices\BMI088 -I ..\User\Devices\DM_Motor -I ..\User\Controller -I ..\User\Lib -I ..\User\Algorithm\EKF -I ..\User\Algorithm\kalman -I ..\User\Algorithm\mahony -I ..\User\Algorithm\PID -I ..\User\Algorithm\VMC -I ..\User\APP-I.\RTE\_Software-ID:\keil_5.33\ARM\CMSIS\5.7.0\CMSIS\Core\Include-D__UVISION_VERSION="533" -D_RTE_ -DSTM32H723xx -D_RTE_ -DUSE_PWR_LDO_SUPPLY -DUSE_HAL_DRIVER -DSTM32H723xx-o software\thread_1.o --omf_browse software\thread_1.crf --depend software\thread_1.d)
-I (..\User\APP\thread.h)(0x68070BFC)
+F (..\User\APP\thread_init.c)(0x680DBCFA)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../RT-Thread -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/components/finsh/inc/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/include/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/extension/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/extension/fcntl/msvc/ -I ../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/libc/extension/fcntl/octal/ -I ..\Drivers\CMSIS\DSP\Include -I ..\User\Bsp -I ..\User\Devices\BMI088 -I ..\User\Devices\DM_Motor -I ..\User\Controller -I ..\User\Lib -I ..\User\Algorithm\EKF -I ..\User\Algorithm\kalman -I ..\User\Algorithm\mahony -I ..\User\Algorithm\PID -I ..\User\Algorithm\VMC -I ..\User\APP-I.\RTE\_Software-ID:\keil_5.33\ARM\CMSIS\5.7.0\CMSIS\Core\Include-D__UVISION_VERSION="533" -D_RTE_ -DSTM32H723xx -D_RTE_ -DUSE_PWR_LDO_SUPPLY -DUSE_HAL_DRIVER -DSTM32H723xx-o software\thread_init.o --omf_browse software\thread_init.crf --depend software\thread_init.d)
+I (..\User\APP\thread_init.h)(0x680DB91D)
 I (../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/include/rtthread.h)(0x67FF7FFB)
 I (../RT-Thread/rtconfig.h)(0x68070F98)
 I (../Middlewares/Third_Party/RealThread_RTOS_RT-Thread/components/finsh/inc/finsh_config.h)(0x67FF8989)
@@ -2701,6 +2710,6 @@ I (../Core/Inc/fdcan.h)(0x67FF8898)
 I (..\User\Bsp\can_bsp.h)(0x66739407)
 I (..\User\APP\chassisR_task.h)(0x66739407)
 I (..\User\Algorithm\PID\pid.h)(0x66739407)
-I (..\User\Algorithm\VMC\VMC_calc.h)(0x680059D8)
+I (..\User\Algorithm\VMC\VMC_calc.h)(0x680CF6DB)
 I (..\User\APP\observe_task.h)(0x66739407)
 I (..\User\APP\ps2_task.h)(0x66739407)

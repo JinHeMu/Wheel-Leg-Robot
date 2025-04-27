@@ -2448,9 +2448,9 @@
               <FilePath>..\User\APP\ps2_task.c</FilePath>
             </File>
             <File>
-              <FileName>thread.c</FileName>
+              <FileName>thread_init.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\User\APP\thread.c</FilePath>
+              <FilePath>..\User\APP\thread_init.c</FilePath>
             </File>
           </Files>
         </Group>

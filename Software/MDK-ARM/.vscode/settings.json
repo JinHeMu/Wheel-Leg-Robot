@@ -9,6 +9,9 @@
         "stdint.h": "c",
         "controller.h": "c",
         "ins_task.h": "c",
-        "thread.h": "c"
+        "thread.h": "c",
+        "chassisl_task.h": "c",
+        "chassisr_task.h": "c",
+        "rtthread.h": "c"
     }
 }
