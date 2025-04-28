@@ -13,6 +13,7 @@
         "chassisl_task.h": "c",
         "chassisr_task.h": "c",
         "rtthread.h": "c",
-        "thread_init.h": "c"
+        "thread_init.h": "c",
+        "ps2_task.h": "c"
     }
 }

@@ -98,9 +98,9 @@ void observe_init(void)
 
 void thread_init(void)
 {
-	// INS_init();
-	// chassisL_init();
-	// chassisR_init();
-	// observe_init();
+	INS_init();
+	chassisL_init();
+	chassisR_init();
+	observe_init();
 	ps2_init();
 }MSH_CMD_EXPORT(thread_init, thread_init);

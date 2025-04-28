@@ -42,7 +42,7 @@ uint16_t MASK[] = {
 
 extern chassis_t chassis_move;
 extern INS_t INS;
-uint32_t PS2_TIME = 200; // ps2手柄任务周期是10ms
+uint32_t PS2_TIME = 10; // ps2手柄任务周期是10ms
 void pstwo_task(void)
 {
 	PS2_SetInit();
@@ -113,15 +113,16 @@ void PS2_data_read(ps2data_t *data)
 	// 读取右边遥感Y轴方向的模拟量
 	data->ry = PS2_AnologData(PSS_RY);
 
-//	if ((data->ry <= 255 && data->ry > 192) || (data->ry < 64 && data->ry >= 0))
-//	{
-//		data->rx = 127;
-//	}
-//	if ((data->rx <= 255 && data->rx > 192) || (data->rx < 64 && data->rx >= 0))
-//	{
-//		data->ry = 128;
-//	}
-	rt_kprintf("%d\n", data->ry);		
+
+	if ((data->ry <= 255 && data->ry > 192) || (data->ry < 64 && data->ry >= 0))
+	{
+		data->rx = 127;
+	}
+	if ((data->rx <= 255 && data->rx > 192) || (data->rx < 64 && data->rx >= 0))
+	{
+		data->ry = 128;
+	}
+
 }
 
 extern vmc_leg_t right;
@@ -149,15 +150,24 @@ void PS2_data_process(ps2data_t *data, chassis_t *chassis, float dt)
 
 	if (chassis->start_flag == 1)
 	{	
-		chassis->target_v = ((float)(data->ry - 128)) * (-0.008f);	  // 往前大于0
+//	chassis->target_v = ((float)(data->ry - 128)) * (-0.008f);	  // 往前大于0
+//	slope_following(&chassis->target_v, &chassis->v_set, 0.005f); //	坡度跟随
+
+//	chassis->x_set = chassis->x_set + chassis->v_set * dt;
+//	chassis->turn_set = chassis->turn_set + (data->rx - 127) * (-0.00025f); // 往右大于0
+
+//	// 腿长变化
+//	chassis->leg_set = chassis->leg_set + ((float)(data->ly - 128)) * (-0.000015f);
+//	chassis->roll_target = ((float)(data->lx - 127)) * (0.0025f);
+		chassis->target_v = 0;	  // 往前大于0
 		slope_following(&chassis->target_v, &chassis->v_set, 0.005f); //	坡度跟随
 
 		chassis->x_set = chassis->x_set + chassis->v_set * dt;
-		chassis->turn_set = chassis->turn_set + (data->rx - 127) * (-0.00025f); // 往右大于0
+		chassis->turn_set = chassis->turn_set + 0; // 往右大于0
 
 		// 腿长变化
-		chassis->leg_set = chassis->leg_set + ((float)(data->ly - 128)) * (-0.000015f);
-		chassis->roll_target = ((float)(data->lx - 127)) * (0.0025f);
+		chassis->leg_set = chassis->leg_set + 0;
+		chassis->roll_target = 0;
 
 		slope_following(&chassis->roll_target, &chassis->roll_set, 0.0075f);
 
