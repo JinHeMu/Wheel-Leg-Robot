@@ -4,6 +4,7 @@ rt_thread_t INS_th;
 rt_thread_t chassisL_th;
 rt_thread_t chassisR_th;
 rt_thread_t ps2_th;
+rt_thread_t observe_th;
 
 void INS_entry(void *parameter)
 {
@@ -24,6 +25,11 @@ void chassisR_entry(void *parameter)
 void ps2_entry(void *parameter)
 {
 	pstwo_task();
+}
+
+void observe_entry(void *parameter)
+{
+	Observe_task();
 }
 
 void INS_init(void)
@@ -77,10 +83,24 @@ void ps2_init(void)
 	}
 }
 
+void observe_init(void)
+{
+
+	// ´´½¨
+	observe_th = rt_thread_create("observe_th", observe_entry, RT_NULL, 1024, 12, 1);
+
+	// Æô¶¯
+	if (RT_NULL != observe_th)
+	{
+		rt_thread_startup(observe_th);
+	}
+}
+
 void thread_init(void)
 {
-	INS_init();
-	chassisL_init();
-	chassisR_init();
-	//ps2_init();
+	// INS_init();
+	// chassisL_init();
+	// chassisR_init();
+	// observe_init();
+	ps2_init();
 }MSH_CMD_EXPORT(thread_init, thread_init);

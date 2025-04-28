@@ -122,11 +122,13 @@ int main(void)
 	{
 	  ;
 	}
+  Power_OUT1_ON;//imu初始化完成，可控电源打开，led灯亮
+	Power_OUT2_ON;
 	
 	
   FDCAN1_Config();
   FDCAN2_Config();
-
+  thread_init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
