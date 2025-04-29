@@ -36,16 +36,16 @@ void chassisR_entry(void *parameter)
 
 void ps2_entry(void *parameter)
 {
-//    pstwo_task();
+    pstwo_task();
 
-		while(1)
-		
-	{
-		AX_PS2_ScanKey(&my_joystick);
-		rt_kprintf("mode:%d,btn1:%d,btn2:%d,RL:%d,RU:%d,LL:%d,LR:%d\n",my_joystick.mode,my_joystick.btn1,my_joystick.btn2,my_joystick.RJoy_LR,my_joystick.RJoy_UD,my_joystick.LJoy_LR,my_joystick.LJoy_UD);
-		rt_thread_mdelay(30);
-		
-	}
+//		while(1)
+//		
+//	{
+//		AX_PS2_ScanKey(&my_joystick);
+//		rt_kprintf("mode:%d,btn1:%d,btn2:%d,RL:%d,RU:%d,LL:%d,LR:%d\n",my_joystick.mode,my_joystick.btn1,my_joystick.btn2,my_joystick.RJoy_LR,my_joystick.RJoy_UD,my_joystick.LJoy_LR,my_joystick.LJoy_UD);
+//		rt_thread_mdelay(30);
+//		
+//	}
 }
 
 void observe_entry(void *parameter)
@@ -127,10 +127,10 @@ void observe_init(void)
 /* 统一初始化函数 */
 void thread_init(void)
 {
-//    INS_init();
-//    chassisL_init();
-//    chassisR_init();
-//    observe_init();
+    INS_init();
+    chassisL_init();
+    chassisR_init();
+    observe_init();
     ps2_init();
 }
 MSH_CMD_EXPORT(thread_init, thread_init);

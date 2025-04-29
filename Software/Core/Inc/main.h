@@ -107,6 +107,8 @@ typedef struct
 
   uint8_t LJoy_UD;      /* ??????  0x00 = ??    0xff = ??   */
 	
+	uint8_t last_key;
+	
 }JOYSTICK_TypeDef;
 
 

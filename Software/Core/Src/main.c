@@ -189,7 +189,7 @@ int main(void)
 	
   FDCAN1_Config();
   FDCAN2_Config();
-  //thread_init();
+  thread_init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
