@@ -69,10 +69,71 @@ void PeriphCommonClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-void ctrl2_test(void)
+const  uint8_t PS2_cmnd[9] = {0x01, 0x42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};   //??????????????                         
+static uint8_t PS2_data[9] = {0};  //?????????
+
+JOYSTICK_TypeDef my_joystick;
+
+
+static uint8_t PS2_ReadWriteData(uint8_t data)
 {
-	mit_ctrl2(&hfdcan1, 1, 0, 1, 0, 0.1, 0);
-}MSH_CMD_EXPORT(ctrl2_test, ctrl2_test);
+	uint8_t ref,res;
+	
+	
+	for(ref = 0x01; ref > 0x00; ref <<= 1)
+	{
+		CLK_L();
+		if(ref&data)
+			CMD_H();
+		else
+			CMD_L();	
+		
+		DWT_Delay(0.000016f);
+		
+		CLK_H();
+		if(DI())
+			res |= ref; 
+		
+		DWT_Delay(0.000016f);		
+	}
+	
+	CMD_H();
+
+	//???????????
+    return res;	
+}
+
+/**
+  * @??  ??  PS2?????????????????
+  * @??  ??  *JoystickStruct ??????????
+  * @?????  ??
+  */
+void AX_PS2_ScanKey(JOYSTICK_TypeDef *JoystickStruct)
+{
+	uint8_t i;
+	
+	//??????
+	CS_L();
+	
+	//???PS2????
+	for(i=0; i<9; i++)
+	{
+		PS2_data[i] = PS2_ReadWriteData(PS2_cmnd[i]);
+		DWT_Delay(0.000016f);
+	}
+	
+	//??????
+	CS_H();
+
+	//???????
+	JoystickStruct->mode = PS2_data[1];
+	JoystickStruct->btn1 = ~PS2_data[3];
+	JoystickStruct->btn2 = ~PS2_data[4];
+	JoystickStruct->RJoy_LR = PS2_data[5];
+	JoystickStruct->RJoy_UD = PS2_data[6];
+	JoystickStruct->LJoy_LR = PS2_data[7];
+	JoystickStruct->LJoy_UD = PS2_data[8];
+}
 /* USER CODE END 0 */
 
 /**
@@ -128,7 +189,7 @@ int main(void)
 	
   FDCAN1_Config();
   FDCAN2_Config();
-  thread_init();
+  //thread_init();
   /* USER CODE END 2 */
 
   /* Infinite loop */

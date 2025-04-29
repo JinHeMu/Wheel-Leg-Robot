@@ -119,18 +119,18 @@
 
 // <c1>Dynamic Heap Management
 //  <i>Dynamic Heap Management
-#define RT_USING_HEAP
-// </c>
+//#define RT_USING_HEAP
+//// </c>
 
-// <c1>using small memory
-//  <i>using small memory
-#define RT_USING_SMALL_MEM
-// </c>
+//// <c1>using small memory
+////  <i>using small memory
+//#define RT_USING_SMALL_MEM
+//// </c>
 
-// <c1>Small Memory Algorithm
-//  <i>Small Memory Algorithm
-#define RT_USING_SMALL_MEM_AS_HEAP
-// </c>
+//// <c1>Small Memory Algorithm
+////  <i>Small Memory Algorithm
+//#define RT_USING_SMALL_MEM_AS_HEAP
+//// </c>
 // </h>
 
 // <h>Console Configuration

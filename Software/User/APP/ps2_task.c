@@ -55,7 +55,7 @@ void pstwo_task(void)
 		}
 
 		PS2_data_read(&ps2data);											  // 读数据
-		PS2_data_process(&ps2data, &chassis_move, (float)PS2_TIME / 1000.0f); // 处理数据，设置期望数据
+		//PS2_data_process(&ps2data, &chassis_move, (float)PS2_TIME / 1000.0f); // 处理数据，设置期望数据
 		rt_thread_mdelay(PS2_TIME);
 	}
 }
@@ -122,7 +122,7 @@ void PS2_data_read(ps2data_t *data)
 	{
 		data->ry = 128;
 	}
-
+	rt_kprintf("data:%d,%d,%d,%d,%d\n", data->key, data->key, data->key, data->key, data->key);
 }
 
 extern vmc_leg_t right;
@@ -402,18 +402,3 @@ void PS2_SetInit(void)
 	PS2_ExitConfing(); // 完成并保存配置
 }
 
-void start(void)
-{
-	chassis_move.start_flag = 1;
-	chassis_move.leg_set = 0.20;
-	chassis_move.v_set = 0.1;
-	chassis_move.x_set = 0;
-	chassis_move.turn_set = 0;
-}
-MSH_CMD_EXPORT(start, start flag 1);
-
-void stop(void)
-{
-	chassis_move.start_flag = 0;
-}
-MSH_CMD_EXPORT(stop, start flag 0);

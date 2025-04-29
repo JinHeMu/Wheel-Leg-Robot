@@ -77,6 +77,43 @@ void Error_Handler(void);
 /* USER CODE BEGIN Private defines */
 typedef float fp32;
 typedef double fp64;
+#define DI()     HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0)
+
+// ?????????????ùI?????PAout(5)??
+#define CMD_H()   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_SET)
+#define CMD_L()   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_RESET)
+
+// CS?????????ùI?????PAout(6)??
+#define CS_H()    HAL_GPIO_WritePin(GPIOE, GPIO_PIN_9, GPIO_PIN_SET)
+#define CS_L()    HAL_GPIO_WritePin(GPIOE, GPIO_PIN_9, GPIO_PIN_RESET)
+
+// ????????????ùI?????PAout(7)??
+#define CLK_H()   HAL_GPIO_WritePin(GPIOE, GPIO_PIN_13, GPIO_PIN_SET)
+#define CLK_L()   HAL_GPIO_WritePin(GPIOE, GPIO_PIN_13, GPIO_PIN_RESET)
+
+typedef struct			 				
+{
+  uint8_t mode;		    /* ?????????? */
+
+  uint8_t btn1;         /* B0:SLCT B3:STRT B4:UP B5:R B6:DOWN B7:L   */
+
+  uint8_t btn2;         /* B0:L2 B1:R2 B2:L1 B3:R1 B4:/\ B5:O B6:X B7:?? */
+
+  uint8_t RJoy_LR;      /* ??????  0x00 = ??    0xff = ??   */
+
+  uint8_t RJoy_UD;      /* ??????  0x00 = ??    0xff = ??   */
+
+  uint8_t LJoy_LR;      /* ??????  0x00 = ??    0xff = ??   */
+
+  uint8_t LJoy_UD;      /* ??????  0x00 = ??    0xff = ??   */
+	
+}JOYSTICK_TypeDef;
+
+
+/*** PS2??????????????? **********/
+void AX_PS2_Init(void);  //PS2?????
+void AX_PS2_ScanKey(JOYSTICK_TypeDef* JoystickStruct);//PS2??
+void ps2_task(void);
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus
