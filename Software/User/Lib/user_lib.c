@@ -390,20 +390,3 @@ float Get_OLS_Smooth(Ordinary_Least_Squares_t *OLS)
 {
     return OLS->k * OLS->x[OLS->Order - 1] + OLS->b;
 }
-
-void slope_following(float *target,float *set,float acc)
-{
-	if(*target > *set)
-	{
-		*set = *set + acc;
-		if(*set >= *target)
-		*set = *target;
-	}
-	else if(*target < *set)
-	{
-		*set = *set - acc;
-		if(*set <= *target)
-		*set = *target;
-	}
-
-}

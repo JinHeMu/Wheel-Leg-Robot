@@ -15,8 +15,8 @@
   */
 
 #include "ps2_task.h"
-#include "user_lib.h"
-#include <rtthread.h>
+#include "cmsis_os.h"
+
 ps2data_t ps2data;
 
 uint16_t Handkey;														  // 按键值读取，零时存储。
@@ -42,19 +42,25 @@ uint16_t MASK[] = {
 
 extern chassis_t chassis_move;
 extern INS_t INS;
-extern JOYSTICK_TypeDef my_joystick;
 uint32_t PS2_TIME = 10; // ps2手柄任务周期是10ms
+extern JOYSTICK_TypeDef my_joystick;
 void pstwo_task(void)
 {
-
+	//	PS2_SetInit();
 
 	while (1)
 	{
+		//		 if(Data[1]!=0x73)
+		//		 {
+		//		  PS2_SetInit();
+		//		 }
 
-		AX_PS2_ScanKey(&my_joystick);										  // 读数据
-		//rt_kprintf("mode:%d,btn1:%d,btn2:%d,RL:%d,RU:%d,LL:%d,LR:%d\n",my_joystick.mode,my_joystick.btn1,my_joystick.btn2,my_joystick.RJoy_LR,my_joystick.RJoy_UD,my_joystick.LJoy_LR,my_joystick.LJoy_UD);
+		//		 PS2_data_read(&ps2data);//读数据
+		//		 PS2_data_process(&ps2data,&chassis_move,(float)PS2_TIME/1000.0f);//处理数据，设置期望数据
+
+		AX_PS2_ScanKey(&my_joystick);											  // 读数据
 		PS2_data_process(&my_joystick, &chassis_move, (float)PS2_TIME / 1000.0f); // 处理数据，设置期望数据
-		rt_thread_mdelay(PS2_TIME);
+		osDelay(PS2_TIME);
 	}
 }
 
@@ -75,7 +81,6 @@ void PS2_Cmd(uint8_t CMD)
 		HAL_GPIO_WritePin(GPIOE, GPIO_PIN_13, GPIO_PIN_SET); // 时钟拉高
 		DWT_Delay(0.000005f);
 		HAL_GPIO_WritePin(GPIOE, GPIO_PIN_13, GPIO_PIN_RESET);
-
 		DWT_Delay(0.000005f);
 		HAL_GPIO_WritePin(GPIOE, GPIO_PIN_13, GPIO_PIN_SET);
 		if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0))
@@ -93,7 +98,6 @@ Output  : none
 返回  值：无
 **************************************************************************/
 uint8_t reve_flag = 0;
-
 void PS2_data_read(ps2data_t *data)
 {
 	// 读取按键键值
@@ -111,7 +115,6 @@ void PS2_data_read(ps2data_t *data)
 	// 读取右边遥感Y轴方向的模拟量
 	data->ry = PS2_AnologData(PSS_RY);
 
-
 	if ((data->ry <= 255 && data->ry > 192) || (data->ry < 64 && data->ry >= 0))
 	{
 		data->rx = 127;
@@ -120,154 +123,151 @@ void PS2_data_read(ps2data_t *data)
 	{
 		data->ry = 128;
 	}
-	rt_kprintf("data:%d,%d,%d,%d,%d\n", data->key, data->key, data->key, data->key, data->key);
 }
 
 extern vmc_leg_t right;
 extern vmc_leg_t left;
-float acc_test = 0.005f;
-
-//void PS2_data_process(ps2data_t *data, chassis_t *chassis, float dt)
+// void PS2_data_process(ps2data_t *data,chassis_t *chassis,float dt)
 //{
-//	if (data->last_key != 4 && data->key == 4 && chassis->start_flag == 0)
+//	if(data->last_key!=4&&data->key==4&&chassis->start_flag==0)
 //	{
-//		// 手柄上的Start按键被按下
-//		chassis->start_flag = 1;
-//		if (chassis->recover_flag == 0 && ((chassis->myPithR < ((-3.1415926f) / 4.0f) && chassis->myPithR > ((-3.1415926f) / 2.0f)) || (chassis->myPithR > (3.1415926f / 4.0f) && chassis->myPithR < (3.1415926f / 2.0f))))
+//		//手柄上的Start按键被按下
+//		chassis->start_flag=1;
+//	}
+//	else if(data->last_key!=4&&data->key==4&&chassis->start_flag==1)
+//	{
+//		//手柄上的Start按键被按下
+//		chassis->start_flag=0;
+//		chassis->recover_flag=0;
+//	}
+//  if(chassis->recover_flag==0
+//			&&((chassis->myPithR<((-3.1415926f)/4.0f)&&chassis->myPithR>((-3.1415926f)/2.0f))
+//		  ||(chassis->myPithR>(3.1415926f/4.0f)&&chassis->myPithR<(3.1415926f/2.0f))))
 //		{
-//			chassis->recover_flag = 1; // 需要自起
-//		}
-//	}
-//	else if (data->last_key != 4 && data->key == 4 && chassis->start_flag == 1)
-//	{
-//		// 手柄上的Start按键被按下
-//		chassis->start_flag = 0;
-//		chassis->recover_flag = 0;
-//	}
-
-//	data->last_key = data->key;
-
-//	if (chassis->start_flag == 1)
-//	{	
-////	chassis->target_v = ((float)(data->ry - 128)) * (-0.008f);	  // 往前大于0
-////	slope_following(&chassis->target_v, &chassis->v_set, 0.005f); //	坡度跟随
-
-////	chassis->x_set = chassis->x_set + chassis->v_set * dt;
-////	chassis->turn_set = chassis->turn_set + (data->rx - 127) * (-0.00025f); // 往右大于0
-
-////	// 腿长变化
-////	chassis->leg_set = chassis->leg_set + ((float)(data->ly - 128)) * (-0.000015f);
-////	chassis->roll_target = ((float)(data->lx - 127)) * (0.0025f);
-//		chassis->target_v = 0;	  // 往前大于0
-//		slope_following(&chassis->target_v, &chassis->v_set, 0.005f); //	坡度跟随
-
-//		chassis->x_set = chassis->x_set + chassis->v_set * dt;
-//		chassis->turn_set = chassis->turn_set + 0; // 往右大于0
-
-//		// 腿长变化
-//		chassis->leg_set = chassis->leg_set + 0;
-//		chassis->roll_target = 0;
-
-//		slope_following(&chassis->roll_target, &chassis->roll_set, 0.0075f);
-
-//		jump_key(chassis, data);
-
-//		chassis->leg_left_set = chassis->leg_set;
-//		chassis->leg_right_set = chassis->leg_set;
-
-//		mySaturate(&chassis->leg_left_set, 0.065f, 0.18f);	// 腿长限幅在0.065m到0.18m之间
-//		mySaturate(&chassis->leg_right_set, 0.065f, 0.18f); // 腿长限幅在0.065m到0.18m之间
-
-//		if (fabsf(chassis->last_leg_left_set - chassis->leg_left_set) > 0.0001f || fabsf(chassis->last_leg_right_set - chassis->leg_right_set) > 0.0001f)
-//		{						// 遥控器控制腿长在变化
-//			right.leg_flag = 1; // 为1标志着腿长在主动伸缩(不包括自适应伸缩)，根据这个标志可以不进行离地检测，因为当腿长在主动伸缩时，离地检测会误判端为离地了
-//			left.leg_flag = 1;
+//		  chassis->recover_flag=1;//需要自起
+//			 chassis->leg_set=0.08f;//原始腿长
 //		}
 
-//		chassis->last_leg_set = chassis->leg_set;
-//		chassis->last_leg_left_set = chassis->leg_left_set;
-//		chassis->last_leg_right_set = chassis->leg_right_set;
+//  if(data->last_key!=1&&data->key==1&&chassis->prejump_flag==0&&chassis->start_flag==1)
+//	{
+//		//手柄上的select按键按一次置1
+//		chassis->prejump_flag=1;//预跳跃标志置1
 //	}
-//	else if (chassis->start_flag == 0)
-//	{											// 关闭
-//		chassis->v_set = 0.0f;					// 清零
-//		chassis->x_set = chassis->x_filter;		// 保存
-//		chassis->turn_set = chassis->total_yaw; // 保存
-//		chassis->leg_set = 0.08f;				// 原始腿长
+//	else if(data->last_key!=1&&data->key==1&&chassis->prejump_flag==1)
+//	{
+//		//手柄上的select按键再按一次置0
+//		chassis->prejump_flag=0;
 //	}
-//}
+//
+//	if(data->last_key!=5&&data->key==5&&chassis->prejump_flag==1&&chassis->jump_flag==0&&chassis->jump_flag2==0)
+//	{
+//		//手柄上的左边的上下左右键的上按键被按下，开启跳跃
+//		//只有当预跳跃标志置1，按下这个键才能开启跳跃
+//		chassis->jump_flag=1;
+//		chassis->jump_flag2=1;
+//	}
 
-//void jump_key(chassis_t *chassis, ps2data_t *data)
-//{
-//	if (data->key == 12)
-//	{
-//		if (++chassis->count_key > 10)
-//		{
-//			if (chassis->jump_flag == 0)
-//			{
-//				chassis->jump_flag = 1;
-//				chassis->jump_leg = chassis->leg_set;
-//			}
+//	data->last_key=data->key;
+//
+//
+//	if(chassis->start_flag==1)
+//	{//启动
+//		chassis->v_set=((float)(data->ry-128))*(-0.008f);//往前大于0
+//	  chassis->x_set=chassis->x_set+chassis->v_set*dt;
+//
+//		chassis->turn_set=chassis->turn_set+(data->rx-127)*(-0.0005f);//往右大于0
+//
+//		chassis->roll_set=chassis->roll_set+((float)(data->lx-127))*(-0.00007f);
+
+//		mySaturate(&chassis->roll_set,-0.40f,0.40f);
+
+//		chassis->leg_set=chassis->leg_set+((float)(data->ly-128))*(-0.000016f);
+//		mySaturate(&chassis->leg_set,0.072f,0.21f);
+
+//		if(fabsf(chassis->last_leg_set-chassis->leg_set)>0.0001f)
+//		{//遥控器控制腿长在变化
+//			right.leg_flag=1;	//为1标志着遥控器在控制腿长伸缩，根据这个标志可以不进行离地检测，因为当腿长在主动伸缩时，离地检测会误判为离地了
+//      left.leg_flag=1;
 //		}
+//		chassis->last_leg_set=chassis->leg_set;
 //	}
-//	else
+//	else if(chassis->start_flag==0)
+//	{//关闭
+//	  chassis->v_set=0.0f;//清零
+//		chassis->x_set=chassis->x_filter;//保存
+//	  chassis->turn_set=chassis->total_yaw;//保存
+//	  chassis->leg_set=0.08f;//原始腿长
+//	  chassis->roll_set=-0.03f;
+//	}
+//
+//	if(data->key==9)
 //	{
-//		chassis->count_key = 0;
+//	  chassis->roll_set=-0.03f;
 //	}
+//
 //}
 
 void PS2_data_process(JOYSTICK_TypeDef *JoystickStruct, chassis_t *chassis, float dt)
+// void PS2_data_process(ps2data_t *data,chassis_t *chassis,float dt)
 {
-  
-	if (JoystickStruct->last_key != start_key_num && JoystickStruct->btn1 == start_key_num && chassis->start_flag ==0)
-  {
-    //启动前手柄start键按下
-    chassis->start_flag = 1;
-//		rt_kprintf("START!!!");
-		if (chassis->recover_flag == 0 && ((chassis->myPithR < ((-3.1415926f) / 4.0f) && chassis->myPithR > ((-3.1415926f) / 2.0f)) || (chassis->myPithR > (3.1415926f / 4.0f) && chassis->myPithR < (3.1415926f / 2.0f))))
-		{
-			chassis->recover_flag = 1; // 需要自起
-		}
-		}else if (JoystickStruct->last_key != start_key_num && JoystickStruct->btn1 == start_key_num && chassis->start_flag == 1)
-		{
-    // 启动之后手柄上的Start按键被按下
-			chassis->start_flag = 0;
-			chassis->recover_flag = 0;
-//			rt_kprintf("STOP!!!");
-		}
-		JoystickStruct->last_key = JoystickStruct->btn1;
-  	if (chassis->start_flag == 1)
-	{	
-    chassis->target_v = ((float)(JoystickStruct->RJoy_UD - 128)) * (-0.008f);	  // 往前大于0
-    slope_following(&chassis->target_v, &chassis->v_set, 0.005f); //	坡度跟随
+	if (JoystickStruct->last_key != start_key_num && JoystickStruct->btn1 == start_key_num && chassis->start_flag == 0)
+	{
+		// 手柄上的Start按键被按下
+		chassis->start_flag = 1;
+	}
+	else if (JoystickStruct->last_key != start_key_num && JoystickStruct->btn1 == start_key_num && chassis->start_flag == 1)
+	{
+		// 手柄上的Start按键被按下
+		chassis->start_flag = 0;
+		chassis->recover_flag = 0;
+	}
+	if (chassis->recover_flag == 0 && ((chassis->myPithR < ((-3.1415926f) / 4.0f) && chassis->myPithR > ((-3.1415926f) / 2.0f)) || (chassis->myPithR > (3.1415926f / 4.0f) && chassis->myPithR < (3.1415926f / 2.0f))))
+	{
+		chassis->recover_flag = 1; // 需要自起
+		chassis->leg_set = 0.08f;  // 原始腿长
+	}
 
-    chassis->x_set = chassis->x_set + chassis->v_set * dt;
-    chassis->turn_set = chassis->turn_set + (JoystickStruct->RJoy_LR - 127) * (-0.00025f); // 往右大于0
+	if (JoystickStruct->last_key != select_key_num && JoystickStruct->btn1 == select_key_num && chassis->prejump_flag == 0 && chassis->start_flag == 1)
+	{
+		// 手柄上的select按键按一次置1
+		chassis->prejump_flag = 1; // 预跳跃标志置1
+	}
+	else if (JoystickStruct->last_key != select_key_num && JoystickStruct->btn1 == select_key_num && chassis->prejump_flag == 1)
+	{
+		// 手柄上的select按键再按一次置0
+		chassis->prejump_flag = 0;
+	}
 
-    // 腿长变化
-    chassis->leg_set = chassis->leg_set + ((float)(JoystickStruct->LJoy_UD - 128)) * (-0.000015f);
-    chassis->roll_target = ((float)(JoystickStruct->LJoy_LR - 127)) * (0.0025f);
+	if (JoystickStruct->last_key != jump_key_num && JoystickStruct->btn2 == jump_key_num && chassis->prejump_flag == 1 && chassis->jump_flag == 0 && chassis->jump_flag2 == 0)
+	{
+		// 手柄上的左边的上下左右键的上按键被按下，开启跳跃
+		// 只有当预跳跃标志置1，按下这个键才能开启跳跃
+		chassis->jump_flag = 1;
+		chassis->jump_flag2 = 1;
+	}
 
+	JoystickStruct->last_key = JoystickStruct->btn1;
 
-		slope_following(&chassis->roll_target, &chassis->roll_set, 0.0075f);
+	if (chassis->start_flag == 1)
+	{																		   // 启动
+		chassis->v_set = ((float)(JoystickStruct->RJoy_UD - 128)) * (-0.008f); // 往前大于0
+		chassis->x_set = chassis->x_set + chassis->v_set * dt;
 
-		jump_key(chassis, JoystickStruct);
+		chassis->turn_set = chassis->turn_set + (JoystickStruct->RJoy_LR - 127) * (-0.0005f); // 往右大于0
 
-		chassis->leg_left_set = chassis->leg_set;
-		chassis->leg_right_set = chassis->leg_set;
+		chassis->roll_set = chassis->roll_set + ((float)(JoystickStruct->LJoy_LR - 127)) * (-0.00007f);
 
-		mySaturate(&chassis->leg_left_set, 0.065f, 0.18f);	// 腿长限幅在0.065m到0.18m之间
-		mySaturate(&chassis->leg_right_set, 0.065f, 0.18f); // 腿长限幅在0.065m到0.18m之间
+		mySaturate(&chassis->roll_set, -0.40f, 0.40f);
 
-		if (fabsf(chassis->last_leg_left_set - chassis->leg_left_set) > 0.0001f || fabsf(chassis->last_leg_right_set - chassis->leg_right_set) > 0.0001f)
+		chassis->leg_set = chassis->leg_set + ((float)(JoystickStruct->LJoy_UD - 128)) * (-0.000016f);
+		mySaturate(&chassis->leg_set, 0.072f, 0.21f);
+
+		if (fabsf(chassis->last_leg_set - chassis->leg_set) > 0.0001f)
 		{						// 遥控器控制腿长在变化
-			right.leg_flag = 1; // 为1标志着腿长在主动伸缩(不包括自适应伸缩)，根据这个标志可以不进行离地检测，因为当腿长在主动伸缩时，离地检测会误判端为离地了
+			right.leg_flag = 1; // 为1标志着遥控器在控制腿长伸缩，根据这个标志可以不进行离地检测，因为当腿长在主动伸缩时，离地检测会误判为离地了
 			left.leg_flag = 1;
 		}
-
 		chassis->last_leg_set = chassis->leg_set;
-		chassis->last_leg_left_set = chassis->leg_left_set;
-		chassis->last_leg_right_set = chassis->leg_right_set;
 	}
 	else if (chassis->start_flag == 0)
 	{											// 关闭
@@ -275,30 +275,16 @@ void PS2_data_process(JOYSTICK_TypeDef *JoystickStruct, chassis_t *chassis, floa
 		chassis->x_set = chassis->x_filter;		// 保存
 		chassis->turn_set = chassis->total_yaw; // 保存
 		chassis->leg_set = 0.08f;				// 原始腿长
+		chassis->roll_set = -0.03f;
 	}
-}
 
-
-void jump_key(chassis_t *chassis, JOYSTICK_TypeDef *JoystickStruct)
-{
-	if (JoystickStruct->btn2 == jump_key_num)
-	{
-		if (++chassis->count_key > 10)
+		if(JoystickStruct->btn2 == roll_key_num )
 		{
-			if (chassis->jump_flag == 0)
-			{
-				chassis->jump_flag = 1;
-				chassis->jump_leg = chassis->leg_set;
-			}
+		  chassis->roll_set=-0.03f;
 		}
-	}
-	else
-	{
-		chassis->count_key = 0;
-	}
 }
-
-
+		
+			
 
 // 判断是否为红灯模式,0x41=模拟绿灯，0x73=模拟红灯
 // 返回值；0，红灯模式
@@ -484,5 +470,3 @@ void PS2_SetInit(void)
 	// PS2_VibrationMode();	//开启震动模式
 	PS2_ExitConfing(); // 完成并保存配置
 }
-
-

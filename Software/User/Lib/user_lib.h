@@ -14,6 +14,7 @@
 #define _USER_LIB_H
 #include "stdint.h"
 #include "main.h"
+#include "cmsis_os.h"
 
 enum
 {
@@ -148,6 +149,4 @@ float OLS_Smooth(Ordinary_Least_Squares_t *OLS, float deltax, float y);
 float Get_OLS_Derivative(Ordinary_Least_Squares_t *OLS);
 float Get_OLS_Smooth(Ordinary_Least_Squares_t *OLS);
 
-
-void slope_following(float *target,float *set,float acc);
 #endif

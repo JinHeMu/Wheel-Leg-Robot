@@ -129,7 +129,7 @@ uint8_t canx_send_data(FDCAN_HandleTypeDef *hcan, uint16_t id, uint8_t *data, ui
 //  if(HAL_FDCAN_AddMessageToTxFifoQ(hcan, &TxHeader, data) != HAL_OK)
 //  {
 //        // 发送失败处理
-//       Error_Handler();      
+//      Error_Handler();      
 //  }
 	 HAL_FDCAN_AddMessageToTxFifoQ(hcan, &TxHeader, data);
 	 return 0;
@@ -140,43 +140,43 @@ extern chassis_t chassis_move;
 
 void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
 { 
- if((RxFifo0ITs & FDCAN_IT_RX_FIFO0_NEW_MESSAGE) != RESET)
- {
-   if(hfdcan->Instance == FDCAN1)
-   {
-     /* Retrieve Rx messages from RX FIFO0 */
+  if((RxFifo0ITs & FDCAN_IT_RX_FIFO0_NEW_MESSAGE) != RESET)
+  {
+    if(hfdcan->Instance == FDCAN1)
+    {
+      /* Retrieve Rx messages from RX FIFO0 */
 			memset(g_Can1RxData, 0, sizeof(g_Can1RxData));	//接收前先清空数组	
-     HAL_FDCAN_GetRxMessage(hfdcan, FDCAN_RX_FIFO0, &RxHeader1, g_Can1RxData);
+      HAL_FDCAN_GetRxMessage(hfdcan, FDCAN_RX_FIFO0, &RxHeader1, g_Can1RxData);
 			
 			switch(RxHeader1.Identifier)
 			{
         case 3 :dm4310_fbdata(&chassis_move.joint_motor[0], g_Can1RxData,RxHeader1.DataLength);break;
         case 4 :dm4310_fbdata(&chassis_move.joint_motor[1], g_Can1RxData,RxHeader1.DataLength);break;	         	
-			  case 0 :dm6215_fbdata(&chassis_move.wheel_motor[0], g_Can1RxData,RxHeader1.DataLength);break;
-			  default: break;
+				case 0 :dm6215_fbdata(&chassis_move.wheel_motor[0], g_Can1RxData,RxHeader1.DataLength);break;
+				default: break;
 			}			
 	  }
- }
+  }
 }
 
 void HAL_FDCAN_RxFifo1Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo1ITs)
 {
- if((RxFifo1ITs & FDCAN_IT_RX_FIFO1_NEW_MESSAGE) != RESET)
- {
-   if(hfdcan->Instance == FDCAN2)
-   {
-     /* Retrieve Rx messages from RX FIFO0 */
+  if((RxFifo1ITs & FDCAN_IT_RX_FIFO1_NEW_MESSAGE) != RESET)
+  {
+    if(hfdcan->Instance == FDCAN2)
+    {
+      /* Retrieve Rx messages from RX FIFO0 */
 			memset(g_Can2RxData, 0, sizeof(g_Can2RxData));
-     HAL_FDCAN_GetRxMessage(hfdcan, FDCAN_RX_FIFO1, &RxHeader2, g_Can2RxData);
+      HAL_FDCAN_GetRxMessage(hfdcan, FDCAN_RX_FIFO1, &RxHeader2, g_Can2RxData);
 			switch(RxHeader2.Identifier)
 			{
-       case 3 :dm4310_fbdata(&chassis_move.joint_motor[2], g_Can2RxData,RxHeader2.DataLength);break;
-       case 4 :dm4310_fbdata(&chassis_move.joint_motor[3], g_Can2RxData,RxHeader2.DataLength);break;	         	
+        case 3 :dm4310_fbdata(&chassis_move.joint_motor[2], g_Can2RxData,RxHeader2.DataLength);break;
+        case 4 :dm4310_fbdata(&chassis_move.joint_motor[3], g_Can2RxData,RxHeader2.DataLength);break;	         	
 				case 0 :dm6215_fbdata(&chassis_move.wheel_motor[1], g_Can2RxData,RxHeader2.DataLength);break;
 				default: break;
 			}	
-   }
- }
+    }
+  }
 }
 
 

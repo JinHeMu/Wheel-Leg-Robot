@@ -35,8 +35,12 @@
 #define PSS_RY 6
 #define PSS_LX 7
 #define PSS_LY 8
+
+
 #define start_key_num 8
-#define jump_key_num 8
+#define roll_key_num 8
+#define jump_key_num 2
+#define select_key_num 1
 
 typedef struct
 {
@@ -55,8 +59,9 @@ extern uint16_t MASK[16];
 extern uint16_t Handkey;
 
 extern void PS2_data_read(ps2data_t *data);
+//extern void PS2_data_process(ps2data_t *data,chassis_t *chassis,float dt);
 extern void PS2_data_process(JOYSTICK_TypeDef *JoystickStruct, chassis_t *chassis, float dt);
- 
+  
 	
 uint8_t PS2_RedLight(void);   //判断是否为红灯模式
 void PS2_ReadData(void); //读手柄数据
@@ -73,7 +78,7 @@ void PS2_ExitConfing(void);	     //完成配置
 void PS2_SetInit(void);		     //配置初始化
 
 extern void pstwo_task(void);
-void jump_key (chassis_t *chassis,JOYSTICK_TypeDef *JoystickStruct);
+	
 
 
 

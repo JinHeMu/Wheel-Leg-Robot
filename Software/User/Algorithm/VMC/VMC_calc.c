@@ -2,20 +2,19 @@
 
 void VMC_init(vmc_leg_t *vmc)//给杆长赋值
 {
-	vmc->l5=0.08f;//AE长度 //单位为m
-	vmc->l1=0.075f;//单位为m
-	vmc->l2=0.14f;//单位为m
-	vmc->l3=0.14f;//单位为m
-	vmc->l4=0.075f;//单位为m
+	vmc->l5=0.088f;//AE长度 //单位为m
+	vmc->l1=0.0833f;//单位为m
+	vmc->l2=0.16f;//单位为m
+	vmc->l3=0.16f;//单位为m
+	vmc->l4=0.0833f;//单位为m
 }
-
 
 void VMC_calc_1_right(vmc_leg_t *vmc,INS_t *ins,float dt)//计算theta和d_theta给lqr用，同时也计算腿长L0
 {		
 		static float PitchR=0.0f;
 	  static float PithGyroR=0.0f;
 	  PitchR=ins->Pitch;
-	  PithGyroR=ins->Gyro[0];
+	  PithGyroR=ins->Gyro[1];
 	
 	  vmc->YD = vmc->l4*arm_sin_f32(vmc->phi4);//D的y坐标
 	  vmc->YB = vmc->l1*arm_sin_f32(vmc->phi1);//B的y坐标
@@ -67,7 +66,7 @@ void VMC_calc_1_left(vmc_leg_t *vmc,INS_t *ins,float dt)//计算theta和d_theta给lq
 	  static float PitchL=0.0f;
 	  static float PithGyroL=0.0f;
 	  PitchL=0.0f-ins->Pitch;
-	  PithGyroL=0.0f-ins->Gyro[0];
+	  PithGyroL=0.0f-ins->Gyro[1];
 	
 		vmc->YD = vmc->l4*arm_sin_f32(vmc->phi4);//D的y坐标
 	  vmc->YB = vmc->l1*arm_sin_f32(vmc->phi1);//B的y坐标
@@ -125,13 +124,24 @@ void VMC_calc_2(vmc_leg_t *vmc)//计算期望的关节输出力矩
 
 }
 
+float averr[4]={0.0f};
+float aver_fnr=0.0f;
 uint8_t ground_detectionR(vmc_leg_t *vmc,INS_t *ins)
 {
-	vmc->FN=vmc->F0*arm_cos_f32(vmc->theta)+vmc->Tp*arm_sin_f32(vmc->theta)/vmc->L0+6.0f;//腿部机构的力+轮子重力，这里忽略了轮子质量*驱动轮竖直方向运动加速度
-//	vmc->FN=vmc->F0*arm_cos_f32(vmc->theta)+vmc->Tp*arm_sin_f32(vmc->theta)/vmc->L0
-//+0.6f*(ins->MotionAccel_n[2]-vmc->dd_L0*arm_cos_f32(vmc->theta)+2.0f*vmc->d_L0*vmc->d_theta*arm_sin_f32(vmc->theta)+vmc->L0*vmc->dd_theta*arm_sin_f32(vmc->theta)+vmc->L0*vmc->d_theta*vmc->d_theta*arm_cos_f32(vmc->theta));
+
+	vmc->FN=vmc->F0*arm_cos_f32(vmc->theta)+vmc->Tp*arm_sin_f32(vmc->theta)/vmc->L0
++0.6f*(ins->MotionAccel_n[2]-vmc->dd_L0*arm_cos_f32(vmc->theta)+2.0f*vmc->d_L0*vmc->d_theta*arm_sin_f32(vmc->theta)+vmc->L0*vmc->dd_theta*arm_sin_f32(vmc->theta)+vmc->L0*vmc->d_theta*vmc->d_theta*arm_cos_f32(vmc->theta));
  
-	if(vmc->FN<5.0f)
+ 
+	averr[0]=averr[1];
+	averr[1]=averr[2];
+	averr[2]=averr[3];
+	averr[3]=vmc->FN;
+	
+	aver_fnr=0.25f*averr[0]+0.25f*averr[1]+0.25f*averr[2]+0.25f*averr[3];//对支持力进行均值滤波
+	
+	
+	if(aver_fnr<3.0f)
 	{//离地了
 
 	  return 1;
@@ -142,13 +152,22 @@ uint8_t ground_detectionR(vmc_leg_t *vmc,INS_t *ins)
 	}
 }
 
+
+float averl[4]={0.0f};
+float aver_fnl=0.0f;
 uint8_t ground_detectionL(vmc_leg_t *vmc,INS_t *ins)
 {
-	vmc->FN=vmc->F0*arm_cos_f32(vmc->theta)+vmc->Tp*arm_sin_f32(vmc->theta)/vmc->L0+6.0f;//腿部机构的力+轮子重力，这里忽略了轮子质量*驱动轮竖直方向运动加速度
-//	vmc->FN=vmc->F0*arm_cos_f32(vmc->theta)+vmc->Tp*arm_sin_f32(vmc->theta)/vmc->L0
-//+0.6f*(ins->MotionAccel_n[2]-vmc->dd_L0*arm_cos_f32(vmc->theta)+2.0f*vmc->d_L0*vmc->d_theta*arm_sin_f32(vmc->theta)+vmc->L0*vmc->dd_theta*arm_sin_f32(vmc->theta)+vmc->L0*vmc->d_theta*vmc->d_theta*arm_cos_f32(vmc->theta));
+	vmc->FN=vmc->F0*arm_cos_f32(vmc->theta)+vmc->Tp*arm_sin_f32(vmc->theta)/vmc->L0
++0.6f*(ins->MotionAccel_n[2]-vmc->dd_L0*arm_cos_f32(vmc->theta)+2.0f*vmc->d_L0*vmc->d_theta*arm_sin_f32(vmc->theta)+vmc->L0*vmc->dd_theta*arm_sin_f32(vmc->theta)+vmc->L0*vmc->d_theta*vmc->d_theta*arm_cos_f32(vmc->theta));
  
-	if(vmc->FN<5.0f)
+	averl[0]=averl[1];
+	averl[1]=averl[2];
+	averl[2]=averl[3];
+	averl[3]=vmc->FN;
+	
+	aver_fnl=0.25f*averl[0]+0.25f*averl[1]+0.25f*averl[2]+0.25f*averl[3];//对支持力进行均值滤波
+	
+	if(aver_fnl<3.0f)
 	{//离地了
 	  return 1;
 	}

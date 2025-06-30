@@ -1,7 +1,7 @@
 /**
   *********************************************************************
   * @file      ins_task.c/h
-  * @brief     该任务是用mahony方法获取机体姿态，同时获取机体在绝对坐标系下的运动加速度
+  * @brief     该任务是用mahony方法获取机体姿态
   * @note
   * @history
   *
@@ -18,7 +18,6 @@
 #include "QuaternionEKF.h"
 #include "bsp_PWM.h"
 #include "mahony_filter.h"
-#include <rtthread.h>
 
 INS_t INS;
 
@@ -95,16 +94,24 @@ void INS_task(void)
 		if (fabsf(INS.MotionAccel_n[2]) < 0.04f)
 		{
 			INS.MotionAccel_n[2] = 0.0f; // z轴
+			stop_time++;
 		}
+		//		if(stop_time>10)
+		//		{//静止10ms
+		//		  stop_time=0;
+		//			INS.v_n=0.0f;
+		//		}
 
 		if (ins_time > 3000.0f)
 		{
+			INS.v_n = INS.v_n + INS.MotionAccel_n[1] * 0.001f;
+			INS.x_n = INS.x_n + INS.v_n * 0.001f;
 			INS.ins_flag = 1; // 四元数基本收敛，加速度也基本收敛，可以开始底盘任务
 			// 获取最终数据
-			INS.Pitch = mahony.roll;
-			INS.Roll = mahony.pitch;
+			INS.Roll = mahony.roll;
+			INS.Pitch = mahony.pitch;
 			INS.Yaw = mahony.yaw;
-		
+
 			// INS.YawTotalAngle=INS.YawTotalAngle+INS.Gyro[2]*0.001f;
 
 			if (INS.Yaw - INS.YawAngleLast > 3.1415926f)
@@ -122,7 +129,8 @@ void INS_task(void)
 		{
 			ins_time++;
 		}
-		rt_thread_mdelay(1);
+
+		osDelay(1);
 	}
 }
 

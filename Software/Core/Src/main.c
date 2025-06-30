@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2025 STMicroelectronics.
+  * Copyright (c) 2024 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -18,6 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "cmsis_os.h"
 #include "dma.h"
 #include "fdcan.h"
 #include "memorymap.h"
@@ -28,15 +29,12 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include <rtthread.h>
 #include "BMI088driver.h"
 #include "kalman_filter.h"
 #include "mahony_filter.h"
 #include "bsp_dwt.h"
 #include "BMI088Middleware.h"
 #include "can_bsp.h"
-#include "dm4310_drv.h"
-#include "thread_init.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -57,14 +55,14 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-uint8_t sent_data[8] = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08};
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 void PeriphCommonClock_Config(void);
+void MX_FREERTOS_Init(void);
 /* USER CODE BEGIN PFP */
-
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -153,7 +151,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
+//06 01 00 00 00 00 00 00 00 00 00 00 00 00 80 3F
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -178,29 +176,34 @@ int main(void)
   /* USER CODE BEGIN 2 */
 	DWT_Init(480);
   
-    /* BMI088初始化 *///之前已经对角速度和加速度的零飘校准过了，所以之后上电就不需要校准。如果硬件设备更换，则需要重新校准下
+    /* BMI088锟斤拷始锟斤拷 */
   while (BMI088_init(&hspi2, 0) != BMI088_NO_ERROR)
 	{
 	  ;
 	}
-  Power_OUT1_ON;//imu初始化完成，可控电源打开，led灯亮
+	Power_OUT1_ON;//imu锟斤拷始锟斤拷锟斤拷桑锟斤拷煽氐锟皆达拷蚩锟絣ed锟斤拷锟斤拷
 	Power_OUT2_ON;
 	
-	
-  FDCAN1_Config();
-  FDCAN2_Config();
-  thread_init();
+  FDCAN1_Config();//can锟斤拷锟斤拷锟斤拷锟斤拷始锟斤拷
+	FDCAN2_Config();
   /* USER CODE END 2 */
+
+  /* Call init function for freertos objects (in cmsis_os2.c) */
+  MX_FREERTOS_Init();
+
+  /* Start scheduler */
+  osKernelStart();
+
+  /* We should never get here as control is now taken by the scheduler */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
     /* USER CODE END WHILE */
-
+			
     /* USER CODE BEGIN 3 */
-
-		rt_thread_mdelay(1000);
+ 
   }
   /* USER CODE END 3 */
 }

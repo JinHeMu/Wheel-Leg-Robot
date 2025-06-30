@@ -4,7 +4,7 @@ function K = get_k_length(leg_length)
     %x     : 驱动轮位移                    L   : 摆杆重心到驱动轮轴距离
     %phi   : 机体与水平夹角                LM  : 摆杆重心到其转轴距离
     %T     ：驱动轮输出力矩                 l   : 机体重心到其转轴距离
-    %Tp    : 髋关节输出力矩                 mw  : 驱动轮转子质量
+    %Tp    : 髋关节输出力矩                      mw  : 驱动轮转子质量
     %N     ：驱动轮对摆杆力的水平分量        mp  : 摆杆质量
     %P     ：驱动轮对摆杆力的竖直分量        M   : 机体质量
     %Nm    ：摆杆对机体力水平方向分量        Iw  : 驱动轮转子转动惯量
@@ -53,9 +53,13 @@ function K = get_k_length(leg_length)
 
     [f1,f2,f3] = solve(eqn10,eqn20,eqn30,f1,f2,f3); % 求解方程
     
+    disp(f1,f2,f3)
+
     A=subs(jacobian([d_theta,f1,d_x,f2,d_phi,f3],[theta0,d_theta,x0,d_x,phi0,d_phi]),[theta0,d_theta,d_x,phi0,d_phi,T,Tp],[0,0,0,0,0,0,0]);
+    
     A=subs(A,[R,L,LM,l,mw,mp,M,Iw,Ip,IM,g],[R1,L1,LM1,l1,mw1,mp1,M1,Iw1,Ip1,IM1,9.8]);
     A=double(A);
+    disp(A)
     B=subs(jacobian([d_theta,f1,d_x,f2,d_phi,f3],[T,Tp]),[theta0,d_theta,d_x,phi0,d_phi,T,Tp],[0,0,0,0,0,0,0]);
     B=subs(B,[R,L,LM,l,mw,mp,M,Iw,Ip,IM,g],[R1,L1,LM1,l1,mw1,mp1,M1,Iw1,Ip1,IM1,9.8]);
     B=double(B);

@@ -6,7 +6,7 @@
 
 #define pi 3.1415926f
 #define LEG_PID_KP  350.0f
-#define LEG_PID_KI  0.0f
+#define LEG_PID_KI  0.0f//不积分
 #define LEG_PID_KD  3000.0f
 #define LEG_PID_MAX_OUT  90.0f //90牛
 #define LEG_PID_MAX_IOUT 0.0f
@@ -15,7 +15,7 @@ typedef struct
 {
 	/*左右两腿的公共参数，固定不变*/
 	float l5;//AE长度 //单位为m
-	float l1;//单位为m
+	float	l1;//单位为m
 	float l2;//单位为m
 	float l3;//单位为m
 	float l4;//单位为m
@@ -42,6 +42,7 @@ typedef struct
 
 	float F0;
 	float Tp;
+	float F02;
 	
 	float theta;
 	float d_theta;//theta的一阶导数

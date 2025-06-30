@@ -19,16 +19,16 @@
 #define T_MIN -10.0f
 #define T_MAX 10.0f
 
-#define P_MIN2 -12.0f
-#define P_MAX2 12.0f
+#define P_MIN2 -12.5f
+#define P_MAX2 12.5f
 #define V_MIN2 -45.0f
 #define V_MAX2 45.0f
 #define KP_MIN2 0.0f
 #define KP_MAX2 500.0f
 #define KD_MIN2 0.0f
 #define KD_MAX2 5.0f
-#define T_MIN2 -18.0f
-#define T_MAX2 18.0f
+#define T_MIN2 -10.0f
+#define T_MAX2 10.0f
 
 typedef struct 
 {
@@ -86,6 +86,9 @@ extern uint32_t FloatTohex(float HEX);//浮点数到十六进制转换
 
 extern float uint_to_float(int x_int, float x_min, float x_max, int bits);
 extern int float_to_uint(float x_float, float x_min, float x_max, int bits);
+
+
+extern void save_motor_zero(hcan_t* hcan, uint16_t motor_id, uint16_t mode_id);
 
 #endif /* __DM4310_DRV_H__ */
 

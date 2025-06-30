@@ -7,7 +7,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2025 STMicroelectronics.
+  * Copyright (c) 2024 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -79,15 +79,15 @@ typedef float fp32;
 typedef double fp64;
 #define DI()     HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0)
 
-// ?????????????ùI?????PAout(5)??
+// ?????????????ÔøΩI?????PAout(5)??
 #define CMD_H()   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_SET)
 #define CMD_L()   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_RESET)
 
-// CS?????????ùI?????PAout(6)??
+// CS?????????ÔøΩI?????PAout(6)??
 #define CS_H()    HAL_GPIO_WritePin(GPIOE, GPIO_PIN_9, GPIO_PIN_SET)
 #define CS_L()    HAL_GPIO_WritePin(GPIOE, GPIO_PIN_9, GPIO_PIN_RESET)
 
-// ????????????ùI?????PAout(7)??
+// ????????????ÔøΩI?????PAout(7)??
 #define CLK_H()   HAL_GPIO_WritePin(GPIOE, GPIO_PIN_13, GPIO_PIN_SET)
 #define CLK_L()   HAL_GPIO_WritePin(GPIOE, GPIO_PIN_13, GPIO_PIN_RESET)
 
@@ -116,6 +116,7 @@ typedef struct
 void AX_PS2_Init(void);  //PS2?????
 void AX_PS2_ScanKey(JOYSTICK_TypeDef* JoystickStruct);//PS2??
 void ps2_task(void);
+
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

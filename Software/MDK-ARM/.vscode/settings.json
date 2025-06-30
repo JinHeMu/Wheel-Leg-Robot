@@ -1,19 +1,5 @@
 {
     "files.associations": {
-        "dm4310_drv.h": "c",
-        "bmi088middleware.h": "c",
-        "bmi088driver.h": "c",
-        "bsp_dwt.h": "c",
-        "main.h": "c",
-        "user_lib.h": "c",
-        "stdint.h": "c",
-        "controller.h": "c",
-        "ins_task.h": "c",
-        "thread.h": "c",
-        "chassisl_task.h": "c",
-        "chassisr_task.h": "c",
-        "rtthread.h": "c",
-        "thread_init.h": "c",
-        "ps2_task.h": "c"
+        "chassisr_task.h": "c"
     }
 }
